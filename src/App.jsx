@@ -12,6 +12,7 @@ function App() {
   const [hasSetup, setHasSetup] = useState(false);
   const [handCards, setHandCards] = useState([])
   const [score, setScore] = useState({player1:0, player2:0})
+  const [gameOver, setGameOver] = useState(false)
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -33,14 +34,19 @@ function App() {
       })
     }
 
-    const onCardSell = (score, cardSoldId)=>{
+    const onCardSell = (cardSoldId)=>{
       setHandCards((previous)=>{
-        return [...previous].filter((card)=>card.id !== cardSold)
+        return [...previous].filter((card)=>card.id !== cardSoldId)
       })
     }
 
     const onResourceUpdate = (resources)=>{
       setScore(resources)
+    }
+
+    const onGameOver = ()=>{
+      setGameOver(true)
+      setHasStarted(false)
     }
 
     socket.on("connect", onConnect);
@@ -49,6 +55,7 @@ function App() {
     socket.on("cardAdded", onCardAdd);
     socket.on("cardSold", onCardSell) 
     socket.on("resourcesUpdated", onResourceUpdate)
+    socket.on("gameOver", onGameOver)
 
     return () => {
       socket.off("connect", onConnect);
