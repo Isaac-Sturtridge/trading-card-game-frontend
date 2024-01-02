@@ -5,6 +5,7 @@ import { HandCards } from "./components/HandCards";
 import { TableCards } from "./components/TableCards";
 import { CardPile } from "./components/CardPile";
 import Header from "./components/Header";
+import GameOver from "./components/GameOver";
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
@@ -80,6 +81,7 @@ function App() {
           <CardPile />
         </>
       ) : null}
+      {gameOver ? <GameOver/> : null}
     </>
   );
 }
