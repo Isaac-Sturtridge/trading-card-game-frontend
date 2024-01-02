@@ -25,9 +25,16 @@ function App() {
       setHasSetup(true);
     };
 
+    const onCardAdd = (drawnCard)=>{
+      setHandCards((previous)=>{
+        return [...previous, drawnCard]
+      })
+    }
+
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("game-setup", onGameSetup); // to connect with setup-game emitter from the server
+    socket.on("cardAdded", onCardAdd); 
 
     return () => {
       socket.off("connect", onConnect);
