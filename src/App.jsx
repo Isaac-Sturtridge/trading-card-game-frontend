@@ -35,7 +35,7 @@ function App() {
   return (
     <>
     <h1>Card Game</h1>
-    <GameStart setHasStarted={setHasStarted}/>
+    <GameStart hasStarted={hasStarted} setHasStarted={setHasStarted}/>
     {hasStarted? <h1>Game Started!</h1>: null}
     </>
   )

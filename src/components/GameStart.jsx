@@ -1,5 +1,22 @@
-const GameStart = ({setHasStarted})=>{
-    return(<button onClick={()=>{setHasStarted(true)}}>Start!</button>)
-}
+import { socket } from "../socket";
+import { useState } from "react";
 
-export default GameStart
+const GameStart = ({ hasStarted, setHasStarted }) => {
+    const [value, setValue] = useState('test')
+
+
+  return (
+    <button
+      onClick={() => {
+        setHasStarted(true);
+        socket.timeout(1000).emit('sending-message', hasStarted, () => {
+            console.log(hasStarted)
+        })
+      }}
+    >
+      Start!
+    </button>
+  );
+};
+
+export default GameStart;
