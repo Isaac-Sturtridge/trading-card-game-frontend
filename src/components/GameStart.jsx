@@ -6,7 +6,8 @@ const GameStart = ({ hasStarted, setHasStarted }) => {
 
   return (
     <button
-      onClick={() => {
+    disabled={hasStarted}  
+    onClick={() => {
         setHasStarted(true);
         socket.timeout(1000).emit("gameStart", hasStarted, () => {
           console.log(hasStarted);

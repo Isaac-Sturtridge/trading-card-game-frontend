@@ -9,6 +9,12 @@ import GameOver from "./components/GameOver";
 import EndTurn from "./components/EndTurn";
 import Instructions from "./components/Instructions";
 
+socket.auth = {username: "player1"}
+const sessionID = sessionStorage.getItem("sessionID");
+if (sessionID) {
+  socket.auth = { sessionID };
+}
+
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [hasStarted, setHasStarted] = useState(false);
@@ -34,16 +40,14 @@ function App() {
     const onGameSetup = (res) => {
       console.log(res)
       setHasSetup(true);
+      setHasStarted(true)
+      setHandCards(res.playerHand)
+      setTableCards(res.cardsOnTable)
     };
 
-    const onGameStart = (res) => {
-      setHandCards(res)
-    }
-
-    const onCardAdd = (drawnCard) => {
-      setHandCards((previous) => {
-        return [...previous, drawnCard];
-      });
+    const playerHandUpdate = ({playerHand}) => {
+      console.log(playerHand, "<---- player hand obj")
+      setHandCards(playerHand)
     };
 
     const onCardSell = (cardSoldId) => {
@@ -63,17 +67,42 @@ function App() {
 
     const onTurnChange = (player) => {
       setWhoIsPlaying(player);
-    };+
+    };
+
+    // const connectedUsers = (data) => {
+    //   console.log(data)
+    // }
+
+    const activeUsers = (data) => {
+      console.log(data)
+    }
+
+    const tableUpdate = ({cardsOnTable}) => {
+      console.log(cardsOnTable, "<----- cards on table")
+      setTableCards(cardsOnTable)
+    }
+
+    const sessionManagement = ({ sessionID, userID }) => {
+      // attach the session ID to the next reconnection attempts
+      socket.auth = { sessionID };
+      // store it in the localStorage
+      sessionStorage.setItem("sessionID", sessionID);
+      // save the ID of the user
+      socket.userID = userID;
+    }
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("gameSetup", onGameSetup); // to connect with setup-game emitter from the server
-    socket.on("cardAdded", onCardAdd);
+    socket.on("playerHandUpdate", playerHandUpdate);
     socket.on("cardSold", onCardSell);
     socket.on("resourcesUpdated", onResourceUpdate);
     socket.on("gameOver", onGameOver);
     socket.on("turnManager", onTurnChange);
-    socket.on("initialPlayerHand", onGameStart)
+    // socket.on("user connected", connectedUsers);
+    socket.on("users", activeUsers)
+    socket.on("tableUpdate", tableUpdate)
+    socket.on("session", sessionManagement);
 
     return () => {
       socket.off("connect", onConnect);

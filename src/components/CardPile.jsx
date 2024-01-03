@@ -2,11 +2,9 @@ import { socket } from "../socket"
 
 export const CardPile = () => {
     return (
-        <>
-        <button onClick={() => {
-            socket.emit("addCardToHand")
-        }}>Card Pile</button>
-        </>
+        <div>
+        <h2>Card Pile</h2>
+        </div>
     )
 }
 
