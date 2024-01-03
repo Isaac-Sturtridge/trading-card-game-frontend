@@ -1,10 +1,13 @@
-import { socket } from "../socket"
+import { socket } from "../socket";
 
 export const HandCard = () => {
-
-
-
-    return (<button onClick={()=> {
-        socket.emit("sellCardFromHand")
-    }}></button>)
-}
+  return (
+    <div className="singleCard">
+      <button
+        onClick={() => {
+          socket.emit("sellCardFromHand");
+        }}
+      >single card</button>
+    </div>
+  );
+};

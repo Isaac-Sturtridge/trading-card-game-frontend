@@ -1,4 +1,26 @@
 button{
-    height: 500px;
-    width: 500px;
+    height: 20%;
+    width: 20%;
+}
+
+.singleCard{
+    border: 2px solid red;
+    width: 200px;
+    height: 100px;
+}
+
+.userCardArea{
+    border: 2px solid blue;
+    width: 200px;
+    height: auto;
+    text-align: center;
+    flex: auto;
+}
+
+.tableCards{
+    border: 2px solid pink;
+    width: 200px;
+    height: auto;
+    text-align: center;
+    flex: auto;
 }
