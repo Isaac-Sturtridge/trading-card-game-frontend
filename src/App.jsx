@@ -16,6 +16,8 @@ function App() {
   const [score, setScore] = useState({ player1: 0, player2: 0 });
   const [gameOver, setGameOver] = useState(false);
   const [turnEnded, setTurnEnded] = useState(false);
+  const [whoIsPlaying, setWhoIsPlaying] = useState("player1");
+
   useEffect(() => {
     const onDisconnect = () => {
       setIsConnected(false);
@@ -51,6 +53,10 @@ function App() {
       setHasStarted(false);
     };
 
+    const onTurnChange = (player) => {
+      setWhoIsPlaying(player);
+    };
+
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("gameSetup", onGameSetup); // to connect with setup-game emitter from the server
@@ -58,6 +64,7 @@ function App() {
     socket.on("cardSold", onCardSell);
     socket.on("resourcesUpdated", onResourceUpdate);
     socket.on("gameOver", onGameOver);
+    socket.on("turnManager", onTurnChange);
 
     return () => {
       socket.off("connect", onConnect);
@@ -75,6 +82,7 @@ function App() {
       <h1>Card Game</h1>
       <Header score={score} />
       <GameStart hasStarted={hasStarted} setHasStarted={setHasStarted} />
+      <h2>It is {whoIsPlaying} turn!</h2>
       {hasStarted ? <h1>Game Started!</h1> : null}
       {hasSetup ? (
         <>
