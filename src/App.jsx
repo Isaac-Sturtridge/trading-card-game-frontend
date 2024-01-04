@@ -10,6 +10,9 @@ import EndTurn from "./components/EndTurn";
 import Instructions from "./components/Instructions";
 import OpponentConnectionMessage from "./components/OpponentConnectionMessage";
 import ConnectionMessage from "./components/ConnectionMessage";
+import DisconnectMessage from "./components/disconnectMessage";
+import OpponentConnectionMessage from "./components/OpponentConnectionMessage";
+import ConnectionMessage from "./components/ConnectionMessage";
 
 socket.auth = { username: "player1" };
 const sessionID = sessionStorage.getItem("sessionID");
@@ -29,6 +32,9 @@ function App() {
   const [whoIsPlaying, setWhoIsPlaying] = useState("player1");
   const [instructions, setInstructions] = useState(false);
   const [connectedUsers, setConnectedUsers] = useState(0);
+  const [opponentConnection, setOpponentConnection] = useState(false);
+  const [onConnectionMsg, setOnConnectionMsg] = useState(false);
+  const [userDisconnected, setUserDisconnected] = useState(false)
   const [opponentConnection, setOpponentConnection] = useState(false);
   const [onConnectionMsg, setOnConnectionMsg] = useState(false);
 
@@ -100,6 +106,21 @@ function App() {
       }, 2000);
     };
 
+    const onUserDisconnected = ()=>{
+        setUserDisconnected(true)
+        setTimeout(()=>{
+          setUserDisconnected(false)
+        },3000)
+    }
+
+
+    const connectionMessage = (data) => {
+      setOpponentConnection(true);
+      setTimeout(() => {
+        setOpponentConnection(false);
+      }, 2000);
+    };
+
     const sessionManagement = ({ sessionID, userID }) => {
       // attach the session ID to the next reconnection attempts
       socket.auth = { sessionID };
@@ -122,6 +143,8 @@ function App() {
     socket.on("tableUpdate", tableUpdate);
     socket.on("session", sessionManagement);
     socket.on("user connected", connectionMessage);
+    socket.on("user disconnected", onUserDisconnected)
+    socket.on("user connected", connectionMessage);
 
     return () => {
       socket.off("connect", onConnect);
@@ -139,6 +162,10 @@ function App() {
       <h1>Card Game</h1>
       <Header score={score} setInstructions={setInstructions} />
       {instructions ? <Instructions /> : null}
+      {opponentConnection && <OpponentConnectionMessage />}
+      {onConnectionMsg && <ConnectionMessage />}
+
+      {userDisconnected && <DisconnectMessage/>}
       {opponentConnection && <OpponentConnectionMessage />}
       {onConnectionMsg && <ConnectionMessage />}
 
