@@ -3,8 +3,8 @@ import { socket } from "../socket";
 const EndTurn = ({ turnEnded, setTurnEnded }) => {
   return (
     <button
+      disabled ={!turnEnded}
       onClick={() => {
-        setTurnEnded(true);
         socket.emit("endTurn", turnEnded, () => {});
       }}
     >

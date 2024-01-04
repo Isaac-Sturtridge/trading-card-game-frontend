@@ -7,15 +7,27 @@ import { CardPile } from "./components/CardPile";
 import Header from "./components/Header";
 import GameOver from "./components/GameOver";
 import EndTurn from "./components/EndTurn";
+import Instructions from "./components/Instructions";
+
+socket.auth = {username: "player1"}
+const sessionID = sessionStorage.getItem("sessionID");
+if (sessionID) {
+  socket.auth = { sessionID };
+}
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [hasStarted, setHasStarted] = useState(false);
   const [hasSetup, setHasSetup] = useState(false);
   const [handCards, setHandCards] = useState([]);
+  const [tableCards, setTableCards] = useState([])
   const [score, setScore] = useState({ player1: 0, player2: 0 });
   const [gameOver, setGameOver] = useState(false);
-  const [turnEnded, setTurnEnded] = useState(false);
+  const [turnEnded, setTurnEnded] = useState(true);
+  const [whoIsPlaying, setWhoIsPlaying] = useState("player1");
+  const [instructions, setInstructions] = useState(false);
+  const [connectedUsers, setConnectedUsers] = useState(0);
+
   useEffect(() => {
     const onDisconnect = () => {
       setIsConnected(false);
@@ -26,14 +38,18 @@ function App() {
       console.log(socket.id);
     };
 
-    const onGameSetup = () => {
+    const onGameSetup = (res) => {
+      console.log(res)
+      setTurnEnded(res.playerTurn)
       setHasSetup(true);
+      setHasStarted(true)
+      setHandCards(res.playerHand)
+      setTableCards(res.cardsOnTable)
     };
 
-    const onCardAdd = (drawnCard) => {
-      setHandCards((previous) => {
-        return [...previous, drawnCard];
-      });
+    const playerHandUpdate = ({playerHand}) => {
+      console.log(playerHand, "<---- player hand obj")
+      setHandCards(playerHand)
     };
 
     const onCardSell = (cardSoldId) => {
@@ -51,13 +67,43 @@ function App() {
       setHasStarted(false);
     };
 
+    const onTurnChange = (playersTurn) => {
+      setWhoIsPlaying(playersTurn);
+      setTurnEnded(playersTurn)
+      // console.log(player, "<<< Player console")
+    };
+
+    const activeUsers = (data) => {
+      console.log(data)
+      setConnectedUsers(data.length)
+    }
+
+    const tableUpdate = ({cardsOnTable}) => {
+      console.log(cardsOnTable, "<----- cards on table")
+      setTableCards(cardsOnTable)
+    }
+
+    const sessionManagement = ({ sessionID, userID }) => {
+      // attach the session ID to the next reconnection attempts
+      socket.auth = { sessionID };
+      // store it in the localStorage
+      sessionStorage.setItem("sessionID", sessionID);
+      // save the ID of the user
+      socket.userID = userID;
+    }
+
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("gameSetup", onGameSetup); // to connect with setup-game emitter from the server
-    socket.on("cardAdded", onCardAdd);
+    socket.on("playerHandUpdate", playerHandUpdate);
     socket.on("cardSold", onCardSell);
     socket.on("resourcesUpdated", onResourceUpdate);
     socket.on("gameOver", onGameOver);
+    socket.on("playerTurn", onTurnChange);
+    // socket.on("user connected", connectedUsers);
+    socket.on("users", activeUsers)
+    socket.on("tableUpdate", tableUpdate)
+    socket.on("session", sessionManagement);
 
     return () => {
       socket.off("connect", onConnect);
@@ -73,15 +119,19 @@ function App() {
   return (
     <>
       <h1>Card Game</h1>
-      <Header score={score} />
-      <GameStart hasStarted={hasStarted} setHasStarted={setHasStarted} />
+      <Header score={score} setInstructions={setInstructions} />
+      {instructions ? <Instructions /> : null}
+      <GameStart hasStarted={hasStarted} setHasStarted={setHasStarted} connectedUsers={connectedUsers} />
+      <h2>It is {turnEnded ? "your" : "opponents"} turn!</h2>
       {hasStarted ? <h1>Game Started!</h1> : null}
       {hasSetup ? (
         <>
-          <HandCards handCards={handCards} />
-          <TableCards />
-          <CardPile />
-          <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} />
+          <div className="gameTable">
+            <HandCards handCards={handCards} turnEnded={turnEnded} setTurnEnded={setTurnEnded}/>
+            <TableCards tableCards={tableCards} turnEnded={turnEnded} setTurnEnded={setTurnEnded}/>
+            <CardPile />
+            {turnEnded && <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} />}
+          </div>
         </>
       ) : null}
       {gameOver ? <GameOver /> : null}
