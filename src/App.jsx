@@ -4,12 +4,14 @@ import GameStart from "./components/GameStart";
 import { HandCards } from "./components/HandCards";
 import { TableCards } from "./components/TableCards";
 import { CardPile } from "./components/CardPile";
+import Header from "./components/Header";
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [hasStarted, setHasStarted] = useState(false);
   const [hasSetup, setHasSetup] = useState(false);
   const [handCards, setHandCards] = useState([])
+  const [score, setScore] = useState({player1:0, player2:0})
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -37,11 +39,16 @@ function App() {
       })
     }
 
+    const onResourceUpdate = (resources)=>{
+      setScore(resources)
+    }
+
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("game-setup", onGameSetup); // to connect with setup-game emitter from the server
     socket.on("cardAdded", onCardAdd);
     socket.on("cardSold", onCardSell) 
+    socket.on("resourcesUpdated", onResourceUpdate)
 
     return () => {
       socket.off("connect", onConnect);
@@ -56,6 +63,7 @@ function App() {
   return (
     <>
       <h1>Card Game</h1>
+      <Header score = {score}/>
       <GameStart hasStarted={hasStarted} setHasStarted={setHasStarted} />
       {hasStarted ? <h1>Game Started!</h1> : null}
       {hasSetup ? (
