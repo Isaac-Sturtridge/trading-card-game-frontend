@@ -23,9 +23,10 @@ function App() {
   const [tableCards, setTableCards] = useState([])
   const [score, setScore] = useState({ player1: 0, player2: 0 });
   const [gameOver, setGameOver] = useState(false);
-  const [turnEnded, setTurnEnded] = useState(false);
+  const [turnEnded, setTurnEnded] = useState(true);
   const [whoIsPlaying, setWhoIsPlaying] = useState("player1");
   const [instructions, setInstructions] = useState(false);
+  const [connectedUsers, setConnectedUsers] = useState(0);
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -39,6 +40,7 @@ function App() {
 
     const onGameSetup = (res) => {
       console.log(res)
+      setTurnEnded(res.playerTurn)
       setHasSetup(true);
       setHasStarted(true)
       setHandCards(res.playerHand)
@@ -65,16 +67,15 @@ function App() {
       setHasStarted(false);
     };
 
-    const onTurnChange = (player) => {
-      setWhoIsPlaying(player);
+    const onTurnChange = (playersTurn) => {
+      setWhoIsPlaying(playersTurn);
+      setTurnEnded(playersTurn)
+      // console.log(player, "<<< Player console")
     };
-
-    // const connectedUsers = (data) => {
-    //   console.log(data)
-    // }
 
     const activeUsers = (data) => {
       console.log(data)
+      setConnectedUsers(data.length)
     }
 
     const tableUpdate = ({cardsOnTable}) => {
@@ -98,7 +99,7 @@ function App() {
     socket.on("cardSold", onCardSell);
     socket.on("resourcesUpdated", onResourceUpdate);
     socket.on("gameOver", onGameOver);
-    socket.on("turnManager", onTurnChange);
+    socket.on("playerTurn", onTurnChange);
     // socket.on("user connected", connectedUsers);
     socket.on("users", activeUsers)
     socket.on("tableUpdate", tableUpdate)
@@ -120,16 +121,16 @@ function App() {
       <h1>Card Game</h1>
       <Header score={score} setInstructions={setInstructions} />
       {instructions ? <Instructions /> : null}
-      <GameStart hasStarted={hasStarted} setHasStarted={setHasStarted} />
-      <h2>It is {whoIsPlaying} turn!</h2>
+      <GameStart hasStarted={hasStarted} setHasStarted={setHasStarted} connectedUsers={connectedUsers} />
+      <h2>It is {turnEnded ? "your" : "opponents"} turn!</h2>
       {hasStarted ? <h1>Game Started!</h1> : null}
       {hasSetup ? (
         <>
           <div className="gameTable">
-            <HandCards handCards={handCards} />
-            <TableCards tableCards={tableCards}/>
+            <HandCards handCards={handCards} turnEnded={turnEnded} setTurnEnded={setTurnEnded}/>
+            <TableCards tableCards={tableCards} turnEnded={turnEnded} setTurnEnded={setTurnEnded}/>
             <CardPile />
-            <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} />
+            {turnEnded && <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} />}
           </div>
         </>
       ) : null}

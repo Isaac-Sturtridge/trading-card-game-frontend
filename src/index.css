@@ -11,7 +11,7 @@ button{
 
 .userCardArea{
     border: 2px solid blue;
-    width: 200px;
+    width:fit-content;
     height: auto;
     text-align: center;
     flex: auto;
@@ -19,7 +19,7 @@ button{
 
 .tableCards{
     border: 2px solid pink;
-    width: 200px;
+    width:fit-content;
     height: auto;
     text-align: center;
     flex: auto;
