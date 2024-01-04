@@ -5,7 +5,7 @@ import { socket } from "../socket";
 export const TableCards = ({ tableCards, turnEnded, setTurnEnded }) => {
   const handleTableCardClick = (card) => {
     console.log(card, "<--- card Clicked");
-    socket.emit("addCardToHand", { cards: [{ card_type: card }] });
+    socket.emit("addCardToHand", { cards: [{ card_id: card }] });
   };
 
   return (
@@ -19,7 +19,7 @@ export const TableCards = ({ tableCards, turnEnded, setTurnEnded }) => {
               disabled={!turnEnded}
               key={card.card_id}
               onClick={() => {
-                handleTableCardClick(card.card_type);
+                handleTableCardClick(card.card_id);
               }}
             >
               {card.card_type}
