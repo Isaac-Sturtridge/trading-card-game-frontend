@@ -198,3 +198,11 @@ button {
     justify-content: center;
     width: 90%;
   }
+
+  #opponent-connection-message, 
+  #connection-message {
+    position: absolute;
+    background-color: lightgray;
+    width: 200px;
+    border-radius: 10px;
+  }
