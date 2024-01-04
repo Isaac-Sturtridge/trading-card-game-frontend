@@ -10,12 +10,13 @@ export const TableCards = ({ tableCards, turnEnded, setTurnEnded }) => {
 
   return (
     <>
+    <h1 className="tableHeader">Table Cards</h1>
       <div className="tableCards">
-        <h1>Table Cards</h1>
         {tableCards.map((card) => {
           // {console.log(card)}
           return (
             <button
+              className={`tableCard ${card.card_type}`}
               disabled={!turnEnded}
               key={card.card_id}
               onClick={() => {

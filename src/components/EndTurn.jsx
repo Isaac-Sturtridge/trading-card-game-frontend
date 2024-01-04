@@ -3,12 +3,12 @@ import { socket } from "../socket";
 const EndTurn = ({ turnEnded, setTurnEnded }) => {
   return (
     <button
-      disabled ={!turnEnded}
+      className="endTurnButton"
+      disabled={!turnEnded}
       onClick={() => {
         socket.emit("endTurn", turnEnded, () => {});
       }}
-    >
-      End Turn!
+    >{turnEnded ? "End Turn!" : "Opponents Turn!"}
     </button>
   );
 };

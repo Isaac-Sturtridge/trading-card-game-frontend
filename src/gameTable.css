@@ -1,0 +1,41 @@
+.gameTable{
+    border: 2px solid red;
+    display: flex;
+}
+
+.cardsContainers{
+    width: 90%;
+}
+
+.tableCardContainer{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.handCardContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.endTurnButtonContainer{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+}
+
+.endTurnButton{
+    border-radius: 4rem;
+    width: 7vw;
+    font-size: x-large;
+    font-family: cursive;
+}
+
+.tableHeader{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}

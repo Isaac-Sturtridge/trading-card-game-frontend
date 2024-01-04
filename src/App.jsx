@@ -30,7 +30,6 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
   const [turnEnded, setTurnEnded] = useState(true);
   const [whoIsPlaying, setWhoIsPlaying] = useState("player1");
-  const [instructions, setInstructions] = useState(false);
   const [connectedUsers, setConnectedUsers] = useState(0);
   const [opponentConnection, setOpponentConnection] = useState(false);
   const [onConnectionMsg, setOnConnectionMsg] = useState(false);
@@ -159,41 +158,39 @@ function App() {
 
   return (
     <>
-      <h1>Card Game</h1>
-      <Header score={score} setInstructions={setInstructions} />
-      {instructions ? <Instructions /> : null}
-      {opponentConnection && <OpponentConnectionMessage />}
-      {onConnectionMsg && <ConnectionMessage />}
-
+      <Header score={score} />
       {userDisconnected && <DisconnectMessage/>}
       {opponentConnection && <OpponentConnectionMessage />}
       {onConnectionMsg && <ConnectionMessage />}
-
-      <GameStart
+      {!hasStarted ? <GameStart
         hasStarted={hasStarted}
         setHasStarted={setHasStarted}
         connectedUsers={connectedUsers}
-      />
-      <h2>It is {turnEnded ? "your" : "opponents"} turn!</h2>
-      {hasStarted ? <h1>Game Started!</h1> : null}
+        
+      /> : null}
+      {hasStarted ? <h1 className="gameStartedHeader">Game Started!</h1> : null}
       {hasSetup ? (
         <>
           <div className="gameTable">
-            <HandCards
-              handCards={handCards}
-              turnEnded={turnEnded}
-              setTurnEnded={setTurnEnded}
-            />
-            <TableCards
-              tableCards={tableCards}
-              turnEnded={turnEnded}
-              setTurnEnded={setTurnEnded}
-            />
-            <CardPile />
-            {turnEnded && (
-              <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} />
-            )}
+            <div className="cardsContainers">
+              <TableCards
+                className="tableCardContainer"
+                tableCards={tableCards}
+                turnEnded={turnEnded}
+                setTurnEnded={setTurnEnded}
+              />
+              <HandCards
+                className="handCardContainer"
+                handCards={handCards}
+                turnEnded={turnEnded}
+                setTurnEnded={setTurnEnded}
+              />
+            </div>
+            <div className="endTurnButtonContainer">
+                <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} />
+            </div>
           </div>
+          <CardPile />
         </>
       ) : null}
       {gameOver ? <GameOver /> : null}

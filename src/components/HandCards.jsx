@@ -11,7 +11,6 @@ export const HandCards = ({ handCards, turnEnded, setTurnEnded }) => {
   return (
     <>
       <div className="userCardArea">
-        <h1>Hand cards</h1>
         {handCards.map((card) => {
           return (
             <button

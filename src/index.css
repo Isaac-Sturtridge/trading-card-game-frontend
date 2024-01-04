@@ -3,37 +3,198 @@ button {
   width: 20%;
 }
 
-.singleCard {
+.headerArea{
+    border: 2px solid green;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 150px;
+}
+
+.titleContainer{
+    width: 50%;
+}
+
+.title{
+    text-align: center;
+    font-family: cursive;
+    font-size: 4vw;
+    width: 80%;
+}
+
+.scores{
+    font-size: 1vw;
+    border: 2px solid coral;
+    border-radius: 2rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: lightcoral;
+}
+
+.instructionsButton{
+    width: 120px;
+    height: 50px;
+    margin-top: 20px;
+    border-radius: 2rem;
+    background-color: antiquewhite;
+    font-size: medium;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.headerArea{
+    border: 2px solid green;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 150px;
+}
+
+.titleContainer{
+    width: 50%;
+}
+
+.title{
+    text-align: center;
+    font-family: cursive;
+    font-size: 4vw;
+    width: 80%;
+}
+
+.scores{
+    font-size: 1vw;
+    border: 2px solid coral;
+    border-radius: 2rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: lightcoral;
+}
+
+.instructionsButton{
+    width: 120px;
+    height: 50px;
+    margin-top: 20px;
+    border-radius: 2rem;
+    background-color: antiquewhite;
+    font-size: medium;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.singleCard{
   border: 2px solid red;
   width: 200px;
   height: 100px;
 }
 
-.userCardArea {
-  border: 2px solid blue;
-  width: fit-content;
-  height: auto;
-  text-align: center;
-  flex: auto;
+.userCardArea{
+    border: 2px solid blue;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 100px;
 }
 
-.tableCards {
-  border: 2px solid pink;
-  width: fit-content;
-  height: auto;
-  text-align: center;
-  flex: auto;
+.tableCards{
+    border: 2px solid pink;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-#opponent-connection-message {
-  position: absolute;
-  background-color: lightgray;
-  width: 200px;
-  border-radius: 10px;
+.tableCard{
+    width: 150px;
+    border: 1px solid black;
+    height: 220px;
+    border-radius: 10px;
+    margin: 1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+.Gold{
+    background-color: gold;
 }
-#connection-message {
-  position: absolute;
-  background-color: lightgray;
-  width: 200px;
-  border-radius: 10px;
+
+.Silver{
+    background-color: silver;
 }
+
+.Bronze{
+    background-color: #cd7f32;
+}
+
+  .handCard{
+    width: 170px;
+    border: 1px solid black;
+    height: 250px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    transition: all 0.3s;
+    cursor: pointer;
+    margin: 0.3vw;
+  }
+
+  .modal {
+    font-size: 12px;
+  }
+  .modal > .header {
+    width: 100%;
+    border-bottom: 1px solid gray;
+    font-size: 18px;
+    text-align: center;
+    padding: 5px;
+  }
+  .modal > .content {
+    width: 100%;
+    padding: 10px 5px;
+  }
+  .modal > .actions {
+    width: 100%;
+    padding: 10px 5px;
+    margin: auto;
+    text-align: center;
+  }
+  .modal > .close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+  }
+
+  .startGameButtonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    height: 300px;
+    width: 92%;
+  }
+
+  .startGameButton{
+    border-radius: 5vw;
+    font-size: x-large;
+  }
+
+  .gameStartedHeader{
+    display: flex;
+    justify-content: center;
+    width: 90%;
+  }
