@@ -7,6 +7,9 @@ export const HandCards = ({ handCards, turnEnded, setTurnEnded }) => {
     console.log(card);
     socket.emit("sellCardFromHand", { cards: [{ card_id: card }] });
   };
+  const handleCardSwapClick = () => {
+  //   socket.emit("cardSwap", {});
+  };
 
   return (
     <>
@@ -25,6 +28,13 @@ export const HandCards = ({ handCards, turnEnded, setTurnEnded }) => {
             </button>
           );
         })}
+        <button
+          className="swapCardsbutton"
+          disabled={!turnEnded} // || selectedCards.length === 0
+          onClick={() => {
+            handleCardSwapClick(); // [selectedHandCards], [selectedTableCards] to swap when selected cards functionality added
+          }}
+        >Swap Cards!</button>
       </div>
     </>
   );
