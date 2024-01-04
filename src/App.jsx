@@ -8,6 +8,8 @@ import Header from "./components/Header";
 import GameOver from "./components/GameOver";
 import EndTurn from "./components/EndTurn";
 import Instructions from "./components/Instructions";
+import OpponentConnectionMessage from "./components/OpponentConnectionMessage";
+import ConnectionMessage from "./components/ConnectionMessage";
 import DisconnectMessage from "./components/disconnectMessage";
 import OpponentConnectionMessage from "./components/OpponentConnectionMessage";
 import ConnectionMessage from "./components/ConnectionMessage";
@@ -30,6 +32,8 @@ function App() {
   const [whoIsPlaying, setWhoIsPlaying] = useState("player1");
   const [instructions, setInstructions] = useState(false);
   const [connectedUsers, setConnectedUsers] = useState(0);
+  const [opponentConnection, setOpponentConnection] = useState(false);
+  const [onConnectionMsg, setOnConnectionMsg] = useState(false);
   const [userDisconnected, setUserDisconnected] = useState(false)
   const [opponentConnection, setOpponentConnection] = useState(false);
   const [onConnectionMsg, setOnConnectionMsg] = useState(false);
@@ -95,6 +99,13 @@ function App() {
       setTableCards(cardsOnTable);
     };
 
+    const connectionMessage = (data) => {
+      setOpponentConnection(true);
+      setTimeout(() => {
+        setOpponentConnection(false);
+      }, 2000);
+    };
+
     const onUserDisconnected = ()=>{
         setUserDisconnected(true)
         setTimeout(()=>{
@@ -131,6 +142,7 @@ function App() {
     socket.on("users", activeUsers);
     socket.on("tableUpdate", tableUpdate);
     socket.on("session", sessionManagement);
+    socket.on("user connected", connectionMessage);
     socket.on("user disconnected", onUserDisconnected)
     socket.on("user connected", connectionMessage);
 
@@ -150,6 +162,9 @@ function App() {
       <h1>Card Game</h1>
       <Header score={score} setInstructions={setInstructions} />
       {instructions ? <Instructions /> : null}
+      {opponentConnection && <OpponentConnectionMessage />}
+      {onConnectionMsg && <ConnectionMessage />}
+
       {userDisconnected && <DisconnectMessage/>}
       {opponentConnection && <OpponentConnectionMessage />}
       {onConnectionMsg && <ConnectionMessage />}
