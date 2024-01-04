@@ -31,10 +31,17 @@ function App() {
       })
     }
 
+    const onCardSell = (score, cardSoldId)=>{
+      setHandCards((previous)=>{
+        return [...previous].filter((card)=>card.id !== cardSold)
+      })
+    }
+
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("game-setup", onGameSetup); // to connect with setup-game emitter from the server
-    socket.on("cardAdded", onCardAdd); 
+    socket.on("cardAdded", onCardAdd);
+    socket.on("cardSold", onCardSell) 
 
     return () => {
       socket.off("connect", onConnect);
