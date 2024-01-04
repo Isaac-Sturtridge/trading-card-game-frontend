@@ -11,8 +11,6 @@ import Instructions from "./components/Instructions";
 import OpponentConnectionMessage from "./components/OpponentConnectionMessage";
 import ConnectionMessage from "./components/ConnectionMessage";
 import DisconnectMessage from "./components/disconnectMessage";
-import OpponentConnectionMessage from "./components/OpponentConnectionMessage";
-import ConnectionMessage from "./components/ConnectionMessage";
 
 socket.auth = { username: "player1" };
 const sessionID = sessionStorage.getItem("sessionID");
@@ -34,8 +32,6 @@ function App() {
   const [opponentConnection, setOpponentConnection] = useState(false);
   const [onConnectionMsg, setOnConnectionMsg] = useState(false);
   const [userDisconnected, setUserDisconnected] = useState(false)
-  const [opponentConnection, setOpponentConnection] = useState(false);
-  const [onConnectionMsg, setOnConnectionMsg] = useState(false);
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -113,13 +109,6 @@ function App() {
     }
 
 
-    const connectionMessage = (data) => {
-      setOpponentConnection(true);
-      setTimeout(() => {
-        setOpponentConnection(false);
-      }, 2000);
-    };
-
     const sessionManagement = ({ sessionID, userID }) => {
       // attach the session ID to the next reconnection attempts
       socket.auth = { sessionID };
@@ -158,7 +147,7 @@ function App() {
 
   return (
     <>
-      <Header score={score} />
+      <Header score={score}/>
       {userDisconnected && <DisconnectMessage/>}
       {opponentConnection && <OpponentConnectionMessage />}
       {onConnectionMsg && <ConnectionMessage />}
