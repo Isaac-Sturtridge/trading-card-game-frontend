@@ -9,10 +9,9 @@ export const HandCards = ({ handCards, turnEnded, setTurnEnded }) => {
   return (
     <>
       <div className="userCardArea">
-        <h1>Hand cards</h1>
         {handCards.map((card) => {
-          return <button disabled={!turnEnded} key={card.card_id} onClick={() => {
-            handleHandCardClick(card.card_type)
+          return <button className={`handCard ${card.card_type}`} disabled={!turnEnded} key={card.card_id} onClick={() => {
+            handleHandCardClick(card.card_id)
           }}>{card.card_type}</button>
         })}
       </div>
