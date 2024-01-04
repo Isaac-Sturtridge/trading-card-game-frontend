@@ -14,6 +14,7 @@ export const HandCards = ({ handCards, turnEnded, setTurnEnded }) => {
         {handCards.map((card) => {
           return (
             <button
+              className={`handCard ${card.card_type}`}
               disabled={!turnEnded}
               key={card.card_id}
               onClick={() => {

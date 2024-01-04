@@ -31,14 +31,14 @@ function App() {
   const [connectedUsers, setConnectedUsers] = useState(0);
   const [opponentConnection, setOpponentConnection] = useState(false);
   const [onConnectionMsg, setOnConnectionMsg] = useState(false);
-  const [userDisconnected, setUserDisconnected] = useState(false)
+  const [userDisconnected, setUserDisconnected] = useState(false);
 
   useEffect(() => {
     const onDisconnect = () => {
       setIsConnected(false);
     };
 
-    const onConnect = () => {
+    const onConnect = (data) => {
       setIsConnected(true);
       setOnConnectionMsg(true);
       setTimeout(() => {
@@ -85,6 +85,10 @@ function App() {
     };
 
     const activeUsers = (data) => {
+      data[0].username = `player1`;
+      if (data[1]) {
+        data[1].username = `player2`;
+      }
       console.log(data);
       setConnectedUsers(data.length);
     };
@@ -101,13 +105,12 @@ function App() {
       }, 2000);
     };
 
-    const onUserDisconnected = ()=>{
-        setUserDisconnected(true)
-        setTimeout(()=>{
-          setUserDisconnected(false)
-        },3000)
-    }
-
+    const onUserDisconnected = () => {
+      setUserDisconnected(true);
+      setTimeout(() => {
+        setUserDisconnected(false);
+      }, 3000);
+    };
 
     const sessionManagement = ({ sessionID, userID }) => {
       // attach the session ID to the next reconnection attempts
@@ -131,7 +134,7 @@ function App() {
     socket.on("tableUpdate", tableUpdate);
     socket.on("session", sessionManagement);
     socket.on("user connected", connectionMessage);
-    socket.on("user disconnected", onUserDisconnected)
+    socket.on("user disconnected", onUserDisconnected);
     socket.on("user connected", connectionMessage);
 
     return () => {
@@ -147,16 +150,17 @@ function App() {
 
   return (
     <>
-      <Header score={score}/>
-      {userDisconnected && <DisconnectMessage/>}
+      <Header score={score} />
+      {userDisconnected && <DisconnectMessage />}
       {opponentConnection && <OpponentConnectionMessage />}
       {onConnectionMsg && <ConnectionMessage />}
-      {!hasStarted ? <GameStart
-        hasStarted={hasStarted}
-        setHasStarted={setHasStarted}
-        connectedUsers={connectedUsers}
-        
-      /> : null}
+      {!hasStarted ? (
+        <GameStart
+          hasStarted={hasStarted}
+          setHasStarted={setHasStarted}
+          connectedUsers={connectedUsers}
+        />
+      ) : null}
       {hasStarted ? <h1 className="gameStartedHeader">Game Started!</h1> : null}
       {hasSetup ? (
         <>
@@ -176,7 +180,7 @@ function App() {
               />
             </div>
             <div className="endTurnButtonContainer">
-                <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} />
+              <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} />
             </div>
           </div>
           <CardPile />
