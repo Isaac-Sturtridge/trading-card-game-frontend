@@ -8,6 +8,8 @@ import Header from "./components/Header";
 import GameOver from "./components/GameOver";
 import EndTurn from "./components/EndTurn";
 import Instructions from "./components/Instructions";
+import OpponentConnectionMessage from "./components/OpponentConnectionMessage";
+import ConnectionMessage from "./components/ConnectionMessage";
 
 socket.auth = { username: "player1" };
 const sessionID = sessionStorage.getItem("sessionID");
@@ -27,6 +29,8 @@ function App() {
   const [whoIsPlaying, setWhoIsPlaying] = useState("player1");
   const [instructions, setInstructions] = useState(false);
   const [connectedUsers, setConnectedUsers] = useState(0);
+  const [opponentConnection, setOpponentConnection] = useState(false);
+  const [onConnectionMsg, setOnConnectionMsg] = useState(false);
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -35,6 +39,10 @@ function App() {
 
     const onConnect = () => {
       setIsConnected(true);
+      setOnConnectionMsg(true);
+      setTimeout(() => {
+        setOnConnectionMsg(false);
+      }, 2000);
       console.log(socket.id);
     };
 
@@ -85,6 +93,13 @@ function App() {
       setTableCards(cardsOnTable);
     };
 
+    const connectionMessage = (data) => {
+      setOpponentConnection(true);
+      setTimeout(() => {
+        setOpponentConnection(false);
+      }, 2000);
+    };
+
     const sessionManagement = ({ sessionID, userID }) => {
       // attach the session ID to the next reconnection attempts
       socket.auth = { sessionID };
@@ -106,6 +121,7 @@ function App() {
     socket.on("users", activeUsers);
     socket.on("tableUpdate", tableUpdate);
     socket.on("session", sessionManagement);
+    socket.on("user connected", connectionMessage);
 
     return () => {
       socket.off("connect", onConnect);
@@ -123,6 +139,9 @@ function App() {
       <h1>Card Game</h1>
       <Header score={score} setInstructions={setInstructions} />
       {instructions ? <Instructions /> : null}
+      {opponentConnection && <OpponentConnectionMessage />}
+      {onConnectionMsg && <ConnectionMessage />}
+
       <GameStart
         hasStarted={hasStarted}
         setHasStarted={setHasStarted}
