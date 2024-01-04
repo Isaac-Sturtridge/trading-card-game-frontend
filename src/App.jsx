@@ -6,6 +6,7 @@ function App() {
 
   const [isConnected, setIsConnected] = useState(socket.connected)
   const [hasStarted, setHasStarted] = useState(false)
+  const [hasSetup, setHasSetup] = useState(false)
 
   useEffect(()=>{
 
@@ -18,8 +19,13 @@ function App() {
       console.log(socket.id)
     }
 
+    const onGameSetup = () => {
+      setHasSetup(true)
+    }
+
     socket.on('connect', onConnect)
     socket.on('disconnect', onDisconnect)
+    socket.on('game-setup', onGameSetup) // to connect with setup-game emitter from the server
     
     return ()=>{
       socket.off('connect', onConnect)
@@ -37,6 +43,7 @@ function App() {
     <h1>Card Game</h1>
     <GameStart hasStarted={hasStarted} setHasStarted={setHasStarted}/>
     {hasStarted? <h1>Game Started!</h1>: null}
+    {hasSetup? <h1>Game setup</h1> : null}
     </>
   )
 }
