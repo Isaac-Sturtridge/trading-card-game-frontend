@@ -17,8 +17,8 @@ const Header = ({ score }) => {
   return (
     <header className="headerArea">
       <div className="scores">
-        <h2>Player 1: {score.player1}</h2>
-        <h2>Player 2: {score.player2}</h2>
+      <h2>Player 1: {score[0]}</h2>
+      <h2>Player 2: {score[1]}</h2>
       </div>
       <div className="titleContainer">
         <h1 className="title">Card Game</h1>
