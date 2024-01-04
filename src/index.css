@@ -1,26 +1,39 @@
-button{
-    height: 20%;
-    width: 20%;
+button {
+  height: 20%;
+  width: 20%;
 }
 
-.singleCard{
-    border: 2px solid red;
-    width: 200px;
-    height: 100px;
+.singleCard {
+  border: 2px solid red;
+  width: 200px;
+  height: 100px;
 }
 
-.userCardArea{
-    border: 2px solid blue;
-    width:fit-content;
-    height: auto;
-    text-align: center;
-    flex: auto;
+.userCardArea {
+  border: 2px solid blue;
+  width: fit-content;
+  height: auto;
+  text-align: center;
+  flex: auto;
 }
 
-.tableCards{
-    border: 2px solid pink;
-    width:fit-content;
-    height: auto;
-    text-align: center;
-    flex: auto;
+.tableCards {
+  border: 2px solid pink;
+  width: fit-content;
+  height: auto;
+  text-align: center;
+  flex: auto;
+}
+
+#opponent-connection-message {
+  position: absolute;
+  background-color: lightgray;
+  width: 200px;
+  border-radius: 10px;
+}
+#connection-message {
+  position: absolute;
+  background-color: lightgray;
+  width: 200px;
+  border-radius: 10px;
 }
