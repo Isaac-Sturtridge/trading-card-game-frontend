@@ -36,6 +36,7 @@ function App() {
 	const [usernames, setUsernames] = useState({});
   const [selectedHandCards, setSelectedHandCards] = useState([])
   const [selectedTableCards, setSelectedTableCards] = useState([])
+  const [startMessage, setStartMessage] = useState(false)
 
 	useEffect(() => {
 		const onDisconnect = () => {
@@ -56,6 +57,10 @@ function App() {
 			setTurnEnded(res.playerTurn);
 			setHasSetup(true);
 			setHasStarted(true);
+      setStartMessage(true)
+      setTimeout(()=>{
+        setStartMessage(false)
+      },3000)
 			setHandCards(res.playerHand);
 			setTableCards(res.cardsOnTable);
 		};
@@ -163,9 +168,9 @@ function App() {
 					connectedUsers={connectedUsers}
 				/>
 			) : null}
-			{hasStarted ? (
+			{startMessage ? (
 				<h1 className="gameStartedHeader">Game Started!</h1>
-			) : null}
+			) : null} 
 			{hasSetup ? (
 				<>
 					<div className="gameTable">
@@ -194,7 +199,7 @@ function App() {
 							selectedHandCards={selectedHandCards} selectedTableCards={selectedTableCards}/>
 						</div>
 					</div>
-					<CardPile />
+					{/* <CardPile /> */}
 				</>
 			) : null}
 			{gameOver ? <GameOver /> : null}
