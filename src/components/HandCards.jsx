@@ -2,10 +2,24 @@ import { useState } from "react";
 import { HandCard } from "./HandCard";
 import { socket } from "../socket";
 
-export const HandCards = ({ handCards, turnEnded, setTurnEnded }) => {
+export const HandCards = ({
+  handCards,
+  turnEnded,
+  setTurnEnded,
+  selectedHandCards,
+  setSelectedHandCards,
+}) => {
   const handleHandCardClick = (card) => {
-    console.log(card);
-    socket.emit("sellCardFromHand", { cards: [{ card_id: card }] });
+    setSelectedHandCards((previous) => {
+      if (!previous.includes(card)) {
+        return [...previous, card];
+      } 
+      return [...previous].filter((currentCard) => card !== currentCard );
+    });
+    // socket.emit("sellCardFromHand", { cards: [{ card_id: card }] });
+  };
+  const handleCardSwapClick = () => {
+    //   socket.emit("cardSwap", {});
   };
 
   return (
@@ -14,11 +28,11 @@ export const HandCards = ({ handCards, turnEnded, setTurnEnded }) => {
         {handCards.map((card) => {
           return (
             <button
-              className={`handCard ${card.card_type}`}
+              className={`handCard ${card.card_type} ${selectedHandCards.includes(card) ? 'selected' : ''}`}
               disabled={!turnEnded}
               key={card.card_id}
               onClick={() => {
-                handleHandCardClick(card.card_id);
+                handleHandCardClick(card);
               }}
             >
               {card.card_type}

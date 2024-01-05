@@ -34,6 +34,8 @@ function App() {
 	const [onConnectionMsg, setOnConnectionMsg] = useState(false);
 	const [userDisconnected, setUserDisconnected] = useState(false);
 	const [usernames, setUsernames] = useState({});
+  const [selectedHandCards, setSelectedHandCards] = useState([])
+  const [selectedTableCards, setSelectedTableCards] = useState([])
 
 	useEffect(() => {
 		const onDisconnect = () => {
@@ -81,6 +83,8 @@ function App() {
 		};
 
 		const onTurnChange = (playersTurn) => {
+      setSelectedHandCards([])
+      setSelectedTableCards([])
 			setWhoIsPlaying(playersTurn);
 			setTurnEnded(playersTurn);
 			// console.log(player, "<<< Player console")
@@ -144,6 +148,7 @@ function App() {
 	// console.log(socket);
 	// console.log(hasStarted);
 	// console.log(turnEnded, "turnEnd Console.log");
+  console.log(selectedHandCards);
 
 	return (
 		<>
@@ -170,19 +175,23 @@ function App() {
 								tableCards={tableCards}
 								turnEnded={turnEnded}
 								setTurnEnded={setTurnEnded}
+                selectedTableCards={selectedTableCards}
+                setSelectedTableCards={setSelectedTableCards}
 							/>
 							<HandCards
 								className="handCardContainer"
 								handCards={handCards}
 								turnEnded={turnEnded}
 								setTurnEnded={setTurnEnded}
+                selectedHandCards={selectedHandCards}
+                setSelectedHandCards={setSelectedHandCards}
 							/>
 						</div>
 						<div className="endTurnButtonContainer">
 							<EndTurn
 								turnEnded={turnEnded}
 								setTurnEnded={setTurnEnded}
-							/>
+							selectedHandCards={selectedHandCards} selectedTableCards={selectedTableCards}/>
 						</div>
 					</div>
 					<CardPile />

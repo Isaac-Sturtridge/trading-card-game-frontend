@@ -144,6 +144,31 @@ button {
     transition: all 0.3s;
     cursor: pointer;
     margin: 0.3vw;
+    transition: background-color 0.3s ease;
+  }
+
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 5px #394cb8;
+    }
+    50% {
+      box-shadow: 0 0 15px #3c46d6;
+    }
+    100% {
+      box-shadow: 0 0 5px #4238cc;
+    }
+  }
+
+  .handCard.selected {
+    background-color: #6580f8;
+    border: 2px solid #00ffff;
+    animation: glow 1s infinite;
+  }
+
+  .tableCard.selected {
+    background-color: #6580f8;
+    border: 2px solid #00ffff;
+    animation: glow 1s infinite;
   }
 
   .modal {
