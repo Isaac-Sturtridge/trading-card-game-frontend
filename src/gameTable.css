@@ -8,6 +8,14 @@ body{
     background-color: #a19cc6;
 }
 
+/* .chatBox{
+    border: 2px solid red;
+    margin-left: 5vw;
+    margin-top: 5vw;
+    width: 30vw;
+    height: 40vh;
+} */
+
 .cardsContainers{
     width: 90%;
     margin-left: 10%;

@@ -68,6 +68,7 @@ button {
     padding: 2vw;
     background-color: #b7b4cebd;
     border-radius: 2vw;
+    min-height: 30vh;
 }
 
 .tableCards{
@@ -97,11 +98,23 @@ button {
 }
 
 .Silver{
-    background-color: silver;
+    background-color: rgb(207, 206, 206);
 }
 
 .Bronze{
     background-color: #cd7f32;
+}
+
+.Textile{
+    background-color: rgba(128, 0, 128, 0.637)
+}
+
+.Diamond{
+    background-color: rgba(126, 218, 218, 0.281);
+}
+
+.Spice{
+    background-color: rgba(128, 0, 0, 0.685);
 }
 
   .handCard{
@@ -112,7 +125,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3vw;
+    font-size: 2.3vw;
     transition: all 0.3s;
     cursor: pointer;
     margin: 0.3vw;
@@ -202,6 +215,9 @@ button {
   .startGameButton{
     border-radius: 5vw;
     font-size: x-large;
+    margin-left: 10%;
+    height: 10vh;
+    background-color: #e4eef6;
   }
 
   .gameStartedHeader{

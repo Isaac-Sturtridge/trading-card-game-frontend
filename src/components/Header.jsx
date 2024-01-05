@@ -15,8 +15,6 @@ const Header = ({ score, usernames }) => {
 		});
 	};
 
-	console.log(socket.username);
-	console.log(score);
 	let player, opponent;
 	for (const user in usernames) {
 		if (usernames[user].userID === socket.userID) {
@@ -28,7 +26,6 @@ const Header = ({ score, usernames }) => {
 
 	let playerScore, opponentScore;
 	for (const s in score) {
-		console.log(s, socket.userID);
 		if (s === socket.userID) {
 			playerScore = score[s];
 		} else {
@@ -36,7 +33,7 @@ const Header = ({ score, usernames }) => {
 		}
 	}
 
-	console.log(playerScore, opponentScore);
+	// console.log(playerScore, opponentScore);
 
 	return (
 		<header className="headerArea">

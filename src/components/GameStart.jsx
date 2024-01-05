@@ -12,7 +12,6 @@ const GameStart = ({ hasStarted, setHasStarted, connectedUsers }) => {
     onClick={() => {
         setHasStarted(true);
         socket.timeout(1000).emit("gameStart", hasStarted, () => {
-          console.log(hasStarted);
         });
       }}
     >
