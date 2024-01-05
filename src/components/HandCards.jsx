@@ -2,13 +2,24 @@ import { useState } from "react";
 import { HandCard } from "./HandCard";
 import { socket } from "../socket";
 
-export const HandCards = ({ handCards, turnEnded, setTurnEnded }) => {
+export const HandCards = ({
+  handCards,
+  turnEnded,
+  setTurnEnded,
+  setSelectedHandCards,
+}) => {
   const handleHandCardClick = (card) => {
-    console.log(card);
-    socket.emit("sellCardFromHand", { cards: [{ card_id: card }] });
+    setSelectedHandCards((previous) => {
+      if (!previous.includes(card)) {
+        return [...previous, card];
+      } else {
+        return [...previous];
+      }
+    });
+    // socket.emit("sellCardFromHand", { cards: [{ card_id: card }] });
   };
   const handleCardSwapClick = () => {
-  //   socket.emit("cardSwap", {});
+    //   socket.emit("cardSwap", {});
   };
 
   return (
@@ -21,7 +32,7 @@ export const HandCards = ({ handCards, turnEnded, setTurnEnded }) => {
               disabled={!turnEnded}
               key={card.card_id}
               onClick={() => {
-                handleHandCardClick(card.card_id);
+                handleHandCardClick(card);
               }}
             >
               {card.card_type}
@@ -34,7 +45,9 @@ export const HandCards = ({ handCards, turnEnded, setTurnEnded }) => {
           onClick={() => {
             handleCardSwapClick(); // [selectedHandCards], [selectedTableCards] to swap when selected cards functionality added
           }}
-        >Swap Cards!</button>
+        >
+          Swap Cards!
+        </button>
       </div>
     </>
   );

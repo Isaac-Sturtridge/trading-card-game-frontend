@@ -32,6 +32,8 @@ function App() {
   const [opponentConnection, setOpponentConnection] = useState(false);
   const [onConnectionMsg, setOnConnectionMsg] = useState(false);
   const [userDisconnected, setUserDisconnected] = useState(false);
+  const [selectedHandCards, setSelectedHandCards] = useState([])
+  const [selectedTableCards, setSelectedTableCards] = useState([])
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -147,6 +149,7 @@ function App() {
   // console.log(socket);
   // console.log(hasStarted);
   // console.log(turnEnded, "turnEnd Console.log");
+  console.log(selectedTableCards);
 
   return (
     <>
@@ -171,12 +174,14 @@ function App() {
                 tableCards={tableCards}
                 turnEnded={turnEnded}
                 setTurnEnded={setTurnEnded}
+                setSelectedTableCards={setSelectedTableCards}
               />
               <HandCards
                 className="handCardContainer"
                 handCards={handCards}
                 turnEnded={turnEnded}
                 setTurnEnded={setTurnEnded}
+                setSelectedHandCards={setSelectedHandCards}
               />
             </div>
             <div className="endTurnButtonContainer">
