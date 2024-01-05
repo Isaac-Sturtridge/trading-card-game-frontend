@@ -6,6 +6,7 @@ export const HandCards = ({
   handCards,
   turnEnded,
   setTurnEnded,
+  selectedHandCards,
   setSelectedHandCards,
 }) => {
   const handleHandCardClick = (card) => {
@@ -27,7 +28,7 @@ export const HandCards = ({
         {handCards.map((card) => {
           return (
             <button
-              className={`handCard ${card.card_type}`}
+              className={`handCard ${card.card_type} ${selectedHandCards.includes(card) ? 'selected' : ''}`}
               disabled={!turnEnded}
               key={card.card_id}
               onClick={() => {
@@ -40,7 +41,7 @@ export const HandCards = ({
         })}
         <button
           className="swapCardsbutton"
-          disabled={!turnEnded} // || selectedCards.length === 0
+          disabled={!turnEnded || selectedHandCards.length === 0} // || selectedCards.length === 0
           onClick={() => {
             handleCardSwapClick(); // [selectedHandCards], [selectedTableCards] to swap when selected cards functionality added
           }}

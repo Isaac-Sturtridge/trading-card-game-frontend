@@ -174,6 +174,7 @@ function App() {
                 tableCards={tableCards}
                 turnEnded={turnEnded}
                 setTurnEnded={setTurnEnded}
+                selectedTableCards={selectedTableCards}
                 setSelectedTableCards={setSelectedTableCards}
               />
               <HandCards
@@ -181,6 +182,7 @@ function App() {
                 handCards={handCards}
                 turnEnded={turnEnded}
                 setTurnEnded={setTurnEnded}
+                selectedHandCards={selectedHandCards}
                 setSelectedHandCards={setSelectedHandCards}
               />
             </div>

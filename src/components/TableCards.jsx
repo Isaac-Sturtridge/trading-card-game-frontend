@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TableCard } from "./TableCard";
 import { socket } from "../socket";
 
-export const TableCards = ({ tableCards, turnEnded, setTurnEnded, setSelectedTableCards }) => {
+export const TableCards = ({ tableCards, turnEnded, setTurnEnded, selectedTableCards, setSelectedTableCards }) => {
   const handleTableCardClick = (card) => {
     setSelectedTableCards((previous) => {
       if (!previous.includes(card)) {
@@ -21,7 +21,7 @@ export const TableCards = ({ tableCards, turnEnded, setTurnEnded, setSelectedTab
           // {console.log(card)}
           return (
             <button
-              className={`tableCard ${card.card_type}`}
+              className={`tableCard ${card.card_type} ${selectedTableCards.includes(card)? 'selected' : ''}`}
               disabled={!turnEnded}
               key={card.card_id}
               onClick={() => {

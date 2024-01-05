@@ -4,15 +4,15 @@ import { socket } from "../socket";
 const EndTurn = ({ turnEnded, setTurnEnded, selectedTableCards, selectedHandCards }) => {
   const [action, setAction] = useState('')
 
-  if(selectedTableCards.length === 1 && selectedHandCards.length === 0) {
-    setAction('addCardToHand')
-  } else if(selectedHandCards.length > 0 && selectedTableCards.length === 0) {
-    setAction('sellCardFromHand')
-  } else if(selectedHandCards.length === selectedTableCards.length && selectedHandCards.length > 0 && selectedTableCards.length > 0) {
-    setAction('cardSwap')
-  } else {
-    setAction('')
-  }
+  // if(selectedTableCards.length === 1 && selectedHandCards.length === 0) {
+  //   setAction('addCardToHand')
+  // } else if(selectedHandCards.length > 0 && selectedTableCards.length === 0) {
+  //   setAction('sellCardFromHand')
+  // } else if(selectedHandCards.length === selectedTableCards.length && selectedHandCards.length > 0 && selectedTableCards.length > 0) {
+  //   setAction('cardSwap')
+  // } else {
+  //   setAction('')
+  // }
 
   const handleClick = () => {
     socket.emit(action, )
