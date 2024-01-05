@@ -5,7 +5,7 @@ const EndTurn = ({ turnEnded, setTurnEnded, selectedTableCards, selectedHandCard
   const [action, setAction] = useState('Your turn')
   const [payload, setPayload] = useState([])
   const [actionLookup, setActionLookup] = useState({
-    'addCardToHand': 'Add card to hand',
+    'addCardToHand': 'Take card',
     'sellCardFromHand': 'Sell card',
     'cardSwap': 'Swap cards',
     'Invalid Move': 'Invalid Move',
@@ -37,7 +37,7 @@ const EndTurn = ({ turnEnded, setTurnEnded, selectedTableCards, selectedHandCard
 
   return (
     <button
-      className="endTurnButton"
+      className={`endTurnButton ${action}`}
       disabled={!turnEnded}
       onClick={handleClick}
     >{turnEnded ? `${actionLookup[action]}`: "Opponents Turn!"}

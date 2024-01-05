@@ -163,9 +163,9 @@ function App() {
 					connectedUsers={connectedUsers}
 				/>
 			) : null}
-			{hasStarted ? (
+			{/* {hasStarted ? (
 				<h1 className="gameStartedHeader">Game Started!</h1>
-			) : null}
+			) : null} */}
 			{hasSetup ? (
 				<>
 					<div className="gameTable">
@@ -194,7 +194,7 @@ function App() {
 							selectedHandCards={selectedHandCards} selectedTableCards={selectedTableCards}/>
 						</div>
 					</div>
-					<CardPile />
+					{/* <CardPile /> */}
 				</>
 			) : null}
 			{gameOver ? <GameOver /> : null}

@@ -1,10 +1,16 @@
 .gameTable{
-    border: 2px solid red;
+    /* border: 2px solid red; */
     display: flex;
+    background-color: #a19cc6;
+}
+
+body{
+    background-color: #a19cc6;
 }
 
 .cardsContainers{
     width: 90%;
+    margin-left: 10%;
 }
 
 .tableCardContainer{
@@ -18,21 +24,73 @@
     align-items: center;
 }
 
-
-
 .endTurnButtonContainer{
     width: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid red;
+    margin-bottom: 10vw;
+    /* border: 2px solid red; */
 }
 
 .endTurnButton{
     border-radius: 4rem;
-    width: 7vw;
-    font-size: x-large;
+    width: 100%;
+    font-size: 1.7vw;
     font-family: cursive;
+    margin-right: 20%;
+}
+
+@keyframes greenGlow {
+    0% {
+      box-shadow: 0 0 5px #24e90a;
+    }
+    50% {
+      box-shadow: 0 0 15px #10aa02;
+    }
+    100% {
+      box-shadow: 0 0 5px #15e40e;
+    }
+  }
+
+  @keyframes blueGlow {
+    0% {
+      box-shadow: 0 0 5px #0db2e4;
+    }
+    50% {
+      box-shadow: 0 0 15px #0978d3;
+    }
+    100% {
+      box-shadow: 0 0 5px #0a3dc9;
+    }
+  }
+
+  @keyframes goldGlow {
+    0% {
+      box-shadow: 0 0 5px #f0ec07;
+    }
+    50% {
+      box-shadow: 0 0 15px #d3be06;
+    }
+    100% {
+      box-shadow: 0 0 5px #eed706;
+    }
+  }
+
+.endTurnButton.addCardToHand{
+    background-color: rgb(65, 223, 65);
+    animation: greenGlow 1s infinite
+}
+
+.endTurnButton.sellCardFromHand{
+    background-color: rgb(253, 229, 12);
+    border: 2px solid gold;
+    animation: goldGlow 1s infinite
+}
+
+.endTurnButton.cardSwap{
+    background-color: rgb(41, 177, 255);
+    animation: blueGlow 1s infinite
 }
 
 .tableHeader{
