@@ -1,194 +1,196 @@
-import { socket } from "./socket";
-import { useState, useEffect } from "react";
-import GameStart from "./components/GameStart";
-import { HandCards } from "./components/HandCards";
-import { TableCards } from "./components/TableCards";
-import { CardPile } from "./components/CardPile";
-import Header from "./components/Header";
-import GameOver from "./components/GameOver";
-import EndTurn from "./components/EndTurn";
-import Instructions from "./components/Instructions";
-import OpponentConnectionMessage from "./components/OpponentConnectionMessage";
-import ConnectionMessage from "./components/ConnectionMessage";
-import DisconnectMessage from "./components/disconnectMessage";
+import { socket } from './socket';
+import { useState, useEffect } from 'react';
+import GameStart from './components/GameStart';
+import { HandCards } from './components/HandCards';
+import { TableCards } from './components/TableCards';
+import { CardPile } from './components/CardPile';
+import Header from './components/Header';
+import GameOver from './components/GameOver';
+import EndTurn from './components/EndTurn';
+import Instructions from './components/Instructions';
+import OpponentConnectionMessage from './components/OpponentConnectionMessage';
+import ConnectionMessage from './components/ConnectionMessage';
+import DisconnectMessage from './components/disconnectMessage';
+import { generateUsername } from 'unique-username-generator';
 
-socket.auth = { username: "player1" };
-const sessionID = sessionStorage.getItem("sessionID");
+socket.auth = { username: generateUsername('-') };
+const sessionID = sessionStorage.getItem('sessionID');
 if (sessionID) {
-  socket.auth = { sessionID };
+	socket.auth = { sessionID };
 }
 
 function App() {
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  const [hasStarted, setHasStarted] = useState(false);
-  const [hasSetup, setHasSetup] = useState(false);
-  const [handCards, setHandCards] = useState([]);
-  const [tableCards, setTableCards] = useState([]);
-  const [score, setScore] = useState([0, 0]);
-  const [gameOver, setGameOver] = useState(false);
-  const [turnEnded, setTurnEnded] = useState(true);
-  const [whoIsPlaying, setWhoIsPlaying] = useState("player1");
-  const [connectedUsers, setConnectedUsers] = useState(0);
-  const [opponentConnection, setOpponentConnection] = useState(false);
-  const [onConnectionMsg, setOnConnectionMsg] = useState(false);
-  const [userDisconnected, setUserDisconnected] = useState(false);
+	const [isConnected, setIsConnected] = useState(socket.connected);
+	const [hasStarted, setHasStarted] = useState(false);
+	const [hasSetup, setHasSetup] = useState(false);
+	const [handCards, setHandCards] = useState([]);
+	const [tableCards, setTableCards] = useState([]);
+	const [score, setScore] = useState({});
+	const [gameOver, setGameOver] = useState(false);
+	const [turnEnded, setTurnEnded] = useState(true);
+	const [whoIsPlaying, setWhoIsPlaying] = useState('player1');
+	const [connectedUsers, setConnectedUsers] = useState(0);
+	const [opponentConnection, setOpponentConnection] = useState(false);
+	const [onConnectionMsg, setOnConnectionMsg] = useState(false);
+	const [userDisconnected, setUserDisconnected] = useState(false);
+	const [usernames, setUsernames] = useState({});
 
-  useEffect(() => {
-    const onDisconnect = () => {
-      setIsConnected(false);
-    };
+	useEffect(() => {
+		const onDisconnect = () => {
+			setIsConnected(false);
+		};
 
-    const onConnect = (data) => {
-      setIsConnected(true);
-      setOnConnectionMsg(true);
-      setTimeout(() => {
-        setOnConnectionMsg(false);
-      }, 2000);
-      console.log(socket.id);
-    };
+		const onConnect = (data) => {
+			setIsConnected(true);
+			setOnConnectionMsg(true);
+			setTimeout(() => {
+				setOnConnectionMsg(false);
+			}, 2000);
+			console.log(socket.id);
+		};
 
-    const onGameSetup = (res) => {
-      console.log(res);
-      setTurnEnded(res.playerTurn);
-      setHasSetup(true);
-      setHasStarted(true);
-      setHandCards(res.playerHand);
-      setTableCards(res.cardsOnTable);
-    };
+		const onGameSetup = (res) => {
+			console.log(res);
+			setTurnEnded(res.playerTurn);
+			setHasSetup(true);
+			setHasStarted(true);
+			setHandCards(res.playerHand);
+			setTableCards(res.cardsOnTable);
+		};
 
-    const playerHandUpdate = ({ playerHand }) => {
-      console.log(playerHand, "<---- player hand obj");
-      setHandCards(playerHand);
-    };
+		const playerHandUpdate = ({ playerHand }) => {
+			console.log(playerHand, '<---- player hand obj');
+			setHandCards(playerHand);
+		};
 
-    const onCardSell = (cardSoldId) => {
-      setHandCards((previous) => {
-        return [...previous].filter((card) => card.id !== cardSoldId);
-      });
-    };
+		const onCardSell = (cardSoldId) => {
+			setHandCards((previous) => {
+				return [...previous].filter((card) => card.id !== cardSoldId);
+			});
+		};
 
-    const onResourceUpdate = ({ playerScores }) => {
-      console.log(playerScores);
-      const results = Object.values(playerScores);
-      setScore(results);
-    };
+		const onResourceUpdate = ({ playerScores }) => {
+			// console.log(playerScores);
+			// const results = Object.values(playerScores);
+			setScore(playerScores);
+		};
 
-    const onGameOver = () => {
-      setGameOver(true);
-      setHasStarted(false);
-    };
+		const onGameOver = () => {
+			setGameOver(true);
+			setHasStarted(false);
+		};
 
-    const onTurnChange = (playersTurn) => {
-      setWhoIsPlaying(playersTurn);
-      setTurnEnded(playersTurn);
-      // console.log(player, "<<< Player console")
-    };
+		const onTurnChange = (playersTurn) => {
+			setWhoIsPlaying(playersTurn);
+			setTurnEnded(playersTurn);
+			// console.log(player, "<<< Player console")
+		};
 
-    const activeUsers = (data) => {
-      data[0].username = `player1`;
-      if (data[1]) {
-        data[1].username = `player2`;
-      }
-      console.log(data);
-      setConnectedUsers(data.length);
-    };
+		const activeUsers = (data) => {
+			setUsernames(data);
+			setConnectedUsers(data.length);
+		};
 
-    const tableUpdate = ({ cardsOnTable }) => {
-      console.log(cardsOnTable, "<----- cards on table");
-      setTableCards(cardsOnTable);
-    };
+		const tableUpdate = ({ cardsOnTable }) => {
+			console.log(cardsOnTable, '<----- cards on table');
+			setTableCards(cardsOnTable);
+		};
 
-    const connectionMessage = (data) => {
-      setOpponentConnection(true);
-      setTimeout(() => {
-        setOpponentConnection(false);
-      }, 2000);
-    };
+		const connectionMessage = (data) => {
+			setOpponentConnection(true);
+			setTimeout(() => {
+				setOpponentConnection(false);
+			}, 2000);
+		};
 
-    const onUserDisconnected = () => {
-      setUserDisconnected(true);
-      setTimeout(() => {
-        setUserDisconnected(false);
-      }, 3000);
-    };
+		const onUserDisconnected = () => {
+			setUserDisconnected(true);
+			setTimeout(() => {
+				setUserDisconnected(false);
+			}, 3000);
+		};
 
-    const sessionManagement = ({ sessionID, userID }) => {
-      // attach the session ID to the next reconnection attempts
-      socket.auth = { sessionID };
-      // store it in the localStorage
-      sessionStorage.setItem("sessionID", sessionID);
-      // save the ID of the user
-      socket.userID = userID;
-    };
+		const sessionManagement = ({ sessionID, userID }) => {
+			// attach the session ID to the next reconnection attempts
+			socket.auth = { sessionID };
+			// store it in the localStorage
+			sessionStorage.setItem('sessionID', sessionID);
+			// save the ID of the user
+			socket.userID = userID;
+		};
 
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
-    socket.on("gameSetup", onGameSetup); // to connect with setup-game emitter from the server
-    socket.on("playerHandUpdate", playerHandUpdate);
-    socket.on("cardSold", onCardSell);
-    socket.on("scoreUpdate", onResourceUpdate);
-    socket.on("gameOver", onGameOver);
-    socket.on("playerTurn", onTurnChange);
-    // socket.on("user connected", connectedUsers);
-    socket.on("users", activeUsers);
-    socket.on("tableUpdate", tableUpdate);
-    socket.on("session", sessionManagement);
-    socket.on("user connected", connectionMessage);
-    socket.on("user disconnected", onUserDisconnected);
-    socket.on("user connected", connectionMessage);
+		socket.on('connect', onConnect);
+		socket.on('disconnect', onDisconnect);
+		socket.on('gameSetup', onGameSetup); // to connect with setup-game emitter from the server
+		socket.on('playerHandUpdate', playerHandUpdate);
+		socket.on('cardSold', onCardSell);
+		socket.on('scoreUpdate', onResourceUpdate);
+		socket.on('gameOver', onGameOver);
+		socket.on('playerTurn', onTurnChange);
+		// socket.on("user connected", connectedUsers);
+		socket.on('users', activeUsers);
+		socket.on('tableUpdate', tableUpdate);
+		socket.on('session', sessionManagement);
+		socket.on('user disconnected', onUserDisconnected);
+		socket.on('user connected', connectionMessage);
 
-    return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-    };
-  }, []);
+		return () => {
+			socket.off('connect', onConnect);
+			socket.off('disconnect', onDisconnect);
+		};
+	}, []);
 
-  // console.log(isConnected);
-  // console.log(socket);
-  // console.log(hasStarted);
-  // console.log(turnEnded, "turnEnd Console.log");
+	// console.log(isConnected);
+	// console.log(socket);
+	// console.log(hasStarted);
+	// console.log(turnEnded, "turnEnd Console.log");
 
-  return (
-    <>
-      <Header score={score} />
-      {userDisconnected && <DisconnectMessage />}
-      {opponentConnection && <OpponentConnectionMessage />}
-      {onConnectionMsg && <ConnectionMessage />}
-      {!hasStarted ? (
-        <GameStart
-          hasStarted={hasStarted}
-          setHasStarted={setHasStarted}
-          connectedUsers={connectedUsers}
-        />
-      ) : null}
-      {hasStarted ? <h1 className="gameStartedHeader">Game Started!</h1> : null}
-      {hasSetup ? (
-        <>
-          <div className="gameTable">
-            <div className="cardsContainers">
-              <TableCards
-                className="tableCardContainer"
-                tableCards={tableCards}
-                turnEnded={turnEnded}
-                setTurnEnded={setTurnEnded}
-              />
-              <HandCards
-                className="handCardContainer"
-                handCards={handCards}
-                turnEnded={turnEnded}
-                setTurnEnded={setTurnEnded}
-              />
-            </div>
-            <div className="endTurnButtonContainer">
-              <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} />
-            </div>
-          </div>
-          <CardPile />
-        </>
-      ) : null}
-      {gameOver ? <GameOver /> : null}
-    </>
-  );
+	return (
+		<>
+			<Header score={score} usernames={usernames} />
+			{userDisconnected && <DisconnectMessage />}
+			{opponentConnection && <OpponentConnectionMessage />}
+			{onConnectionMsg && <ConnectionMessage />}
+			{!hasStarted ? (
+				<GameStart
+					hasStarted={hasStarted}
+					setHasStarted={setHasStarted}
+					connectedUsers={connectedUsers}
+				/>
+			) : null}
+			{hasStarted ? (
+				<h1 className="gameStartedHeader">Game Started!</h1>
+			) : null}
+			{hasSetup ? (
+				<>
+					<div className="gameTable">
+						<div className="cardsContainers">
+							<TableCards
+								className="tableCardContainer"
+								tableCards={tableCards}
+								turnEnded={turnEnded}
+								setTurnEnded={setTurnEnded}
+							/>
+							<HandCards
+								className="handCardContainer"
+								handCards={handCards}
+								turnEnded={turnEnded}
+								setTurnEnded={setTurnEnded}
+							/>
+						</div>
+						<div className="endTurnButtonContainer">
+							<EndTurn
+								turnEnded={turnEnded}
+								setTurnEnded={setTurnEnded}
+							/>
+						</div>
+					</div>
+					<CardPile />
+				</>
+			) : null}
+			{gameOver ? <GameOver /> : null}
+		</>
+	);
 }
 
 export default App;
