@@ -149,7 +149,7 @@ function App() {
   // console.log(socket);
   // console.log(hasStarted);
   // console.log(turnEnded, "turnEnd Console.log");
-  console.log(selectedTableCards);
+  console.log(selectedHandCards);
 
   return (
     <>
@@ -185,7 +185,7 @@ function App() {
               />
             </div>
             <div className="endTurnButtonContainer">
-              <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} />
+              <EndTurn turnEnded={turnEnded} setTurnEnded={setTurnEnded} selectedHandCards={selectedHandCards} selectedTableCards={selectedTableCards}/>
             </div>
           </div>
           <CardPile />

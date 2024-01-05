@@ -12,9 +12,8 @@ export const HandCards = ({
     setSelectedHandCards((previous) => {
       if (!previous.includes(card)) {
         return [...previous, card];
-      } else {
-        return [...previous];
-      }
+      } 
+      return [...previous].filter((currentCard) => card !== currentCard );
     });
     // socket.emit("sellCardFromHand", { cards: [{ card_id: card }] });
   };

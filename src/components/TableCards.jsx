@@ -7,9 +7,8 @@ export const TableCards = ({ tableCards, turnEnded, setTurnEnded, setSelectedTab
     setSelectedTableCards((previous) => {
       if (!previous.includes(card)) {
         return [...previous, card];
-      } else {
-        return [...previous];
-      }
+      } 
+      return [...previous].filter((currentCard) => card !== currentCard );
     });
    // socket.emit("addCardToHand", { cards: [{ card_id: card }] });
   };
