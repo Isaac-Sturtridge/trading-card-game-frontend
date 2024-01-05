@@ -83,6 +83,8 @@ function App() {
 		};
 
 		const onTurnChange = (playersTurn) => {
+      setSelectedHandCards([])
+      setSelectedTableCards([])
 			setWhoIsPlaying(playersTurn);
 			setTurnEnded(playersTurn);
 			// console.log(player, "<<< Player console")
