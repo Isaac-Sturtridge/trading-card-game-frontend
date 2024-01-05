@@ -39,15 +39,6 @@ export const HandCards = ({
             </button>
           );
         })}
-        <button
-          className="swapCardsbutton"
-          disabled={!turnEnded || selectedHandCards.length === 0} // || selectedCards.length === 0
-          onClick={() => {
-            handleCardSwapClick(); // [selectedHandCards], [selectedTableCards] to swap when selected cards functionality added
-          }}
-        >
-          Swap Cards!
-        </button>
       </div>
     </>
   );
