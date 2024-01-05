@@ -143,7 +143,6 @@ function App() {
     socket.on("user disconnected", onUserDisconnected);
     socket.on("user connected", connectionMessage);
     socket.on("tokenValuesUpdate", tokenValues);
-    socket.on("gameplayUpdates", console.log("gameplayUpdates"))
 
     return () => {
       socket.off("connect", onConnect);
