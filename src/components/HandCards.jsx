@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { HandCard } from "./HandCard";
 import { socket } from "../socket";
+import {useSpring, animated} from "@react-spring/web";
+
 
 export const HandCards = ({
   handCards,
@@ -9,6 +11,12 @@ export const HandCards = ({
   selectedHandCards,
   setSelectedHandCards,
 }) => {
+  const [springs, api] = useSpring(() => ({
+    from: {x: 0, y: 0},
+    to: {x: 100, y:100}
+  }))
+
+
   const handleHandCardClick = (card) => {
     setSelectedHandCards((previous) => {
       if (!previous.includes(card)) {
@@ -33,12 +41,24 @@ export const HandCards = ({
               key={card.card_id}
               onClick={() => {
                 handleHandCardClick(card);
+                api.start({
+                  from: {x: 0},
+                  to: {x: 500}
+                })
               }}
             >
               {card.card_type}
             </button>
           );
         })}
+        <animated.div style={{
+        width: 80,
+        height: 80,
+        background: '#ff6d6d',
+        borderRadius: 8,
+        ...springs
+      }}>
+        </animated.div>
       </div>
     </>
   );
