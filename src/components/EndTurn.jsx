@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
-import HandCard from "./HandCard"
 
 const EndTurn = ({ turnEnded, setTurnEnded, selectedTableCards, selectedHandCards }) => {
   const [action, setAction] = useState('Your turn')
