@@ -33,8 +33,6 @@ const Header = ({ score, usernames }) => {
 		}
 	}
 
-	// console.log(playerScore, opponentScore);
-
 	return (
 		<header className="headerArea">
 			<div className="scores">

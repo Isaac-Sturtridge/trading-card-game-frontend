@@ -81,10 +81,15 @@ function App() {
       setScore(playerScores);
     };
 
+    
+
     const onGameOver = ({playerScores, msg}) => {
       setGameOver(true);
+	  setScore(playerScores)
       setHasStarted(false);
-		console.log(msg)
+	  console.log(playerScores)
+	  setHasSetup(false)
+	  
     };
 
     const onTurnChange = (playersTurn) => {
@@ -174,6 +179,7 @@ function App() {
       {onConnectionMsg && <ConnectionMessage />}
       {!hasStarted ? (
         <GameStart
+          gameOver = {gameOver}
           hasStarted={hasStarted}
           setHasStarted={setHasStarted}
           connectedUsers={connectedUsers}
@@ -216,7 +222,7 @@ function App() {
           {/* <CardPile /> */}
         </>
       ) : null}
-      {gameOver ? <GameOver /> : null}
+      {gameOver && <GameOver score = {score} usernames = {usernames} />}
     </>
   );
 }

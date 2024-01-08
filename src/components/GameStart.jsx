@@ -1,8 +1,10 @@
 import { socket } from "../socket";
 import { useState } from "react";
 
-const GameStart = ({ hasStarted, setHasStarted, connectedUsers }) => {
+const GameStart = ({ gameOver, hasStarted, setHasStarted, connectedUsers }) => {
   const [value, setValue] = useState("test");
+
+  let buttonMessage = gameOver ? 'Rematch!' : 'Start!'
 
   return (
     <div className="startGameButtonContainer">
@@ -15,7 +17,7 @@ const GameStart = ({ hasStarted, setHasStarted, connectedUsers }) => {
         });
       }}
     >
-      Start!
+      {buttonMessage}
     </button>
     </div>
   );
