@@ -13,8 +13,8 @@ export const HandCards = ({
     setSelectedHandCards((previous) => {
       if (!previous.includes(card)) {
         return [...previous, card];
-      } 
-      return [...previous].filter((currentCard) => card !== currentCard );
+      }
+      return [...previous].filter((currentCard) => card !== currentCard);
     });
     // socket.emit("sellCardFromHand", { cards: [{ card_id: card }] });
   };
@@ -28,14 +28,16 @@ export const HandCards = ({
         {handCards.map((card) => {
           return (
             <button
-              className={`handCard ${card.card_type} ${selectedHandCards.includes(card) ? 'selected' : ''}`}
+              className={`handCard ${card.card_type} ${
+                selectedHandCards.includes(card) ? "selected" : ""
+              }`}
               disabled={!turnEnded}
               key={card.card_id}
               onClick={() => {
                 handleHandCardClick(card);
               }}
             >
-              {card.card_type}
+              {/* {card.card_type} */}
             </button>
           );
         })}
