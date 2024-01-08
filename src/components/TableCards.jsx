@@ -1,37 +1,28 @@
-import { useState } from "react";
 import { TableCard } from "./TableCard";
-import { socket } from "../socket";
 
-export const TableCards = ({ tableCards, turnEnded, setTurnEnded, selectedTableCards, setSelectedTableCards }) => {
-  const handleTableCardClick = (card) => {
-    setSelectedTableCards((previous) => {
-      if (!previous.includes(card)) {
-        return [...previous, card];
-      } 
-      return [...previous].filter((currentCard) => card !== currentCard );
-    });
-   // socket.emit("addCardToHand", { cards: [{ card_id: card }] });
-  };
-
+export const TableCards = ({
+  tableCards,
+  turnEnded,
+  setTurnEnded,
+  selectedTableCards,
+  setSelectedTableCards,
+}) => {
   return (
     <>
-    <h1 className="tableHeader">Table Cards</h1>
+      <h1 className="tableHeader">Table Cards</h1>
       <div className="tableCards">
         {tableCards.map((card) => {
-          // {console.log(card)}
           return (
-            <button
-              className={`tableCard ${card.card_type} ${selectedTableCards.includes(card)? 'selected' : ''}`}
-              disabled={!turnEnded}
+            <TableCard
               key={card.card_id}
-              onClick={() => {
-                handleTableCardClick(card);
-              }}
-            >
-              {card.card_type}
-            </button>
+              card={card}
+              tableCards={tableCards}
+              turnEnded={turnEnded}
+              setTurnEnded={setTurnEnded}
+              selectedTableCards={selectedTableCards}
+              setSelectedTableCards={setSelectedTableCards}
+            />
           );
-          //   <TableCard setHandCards={setHandCards} key={card} />;
         })}
       </div>
     </>
