@@ -81,7 +81,7 @@ function App() {
       setScore(playerScores);
     };
 
-    const onGameOver = () => {
+    const onGameOver = ({playerScores, msg}) => {
       setGameOver(true);
       setHasStarted(false);
     };
