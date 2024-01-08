@@ -152,7 +152,6 @@ function App() {
     socket.on("user connected", connectionMessage);
     socket.on("tokenValuesUpdate", tokenValues);
     socket.on("gamePlayUpdates", onMessageUpdate)
-    socket.on("gameOver", onGameOver) // playerScores & msg
 
     return () => {
       socket.off("connect", onConnect);
