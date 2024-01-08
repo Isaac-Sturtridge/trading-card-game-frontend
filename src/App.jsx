@@ -84,6 +84,7 @@ function App() {
     const onGameOver = ({playerScores, msg}) => {
       setGameOver(true);
       setHasStarted(false);
+		console.log(msg)
     };
 
     const onTurnChange = (playersTurn) => {
