@@ -12,6 +12,7 @@ import OpponentConnectionMessage from "./components/OpponentConnectionMessage";
 import ConnectionMessage from "./components/ConnectionMessage";
 import DisconnectMessage from "./components/disconnectMessage";
 import { generateUsername } from "unique-username-generator";
+import MessagingArea from "./components/MessagingArea";
 import { useSpring, animated } from "@react-spring/web";
 
 socket.auth = { username: generateUsername("-", 0, 10) };
@@ -38,6 +39,7 @@ function App() {
   const [selectedHandCards, setSelectedHandCards] = useState([]);
   const [selectedTableCards, setSelectedTableCards] = useState([]);
   const [startMessage, setStartMessage] = useState(false);
+  const [messages, setMessages] = useState([])
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -80,9 +82,10 @@ function App() {
       setScore(playerScores);
     };
 
-    const onGameOver = () => {
+    const onGameOver = ({playerScores, msg}) => {
       setGameOver(true);
       setHasStarted(false);
+		console.log(msg)
     };
 
     const onTurnChange = (playersTurn) => {
@@ -116,6 +119,12 @@ function App() {
       }, 3000);
     };
 
+    const onMessageUpdate = ({msg}) => {
+      setMessages((previous) => {
+        return [...previous, msg]
+      })
+    }
+
     const sessionManagement = ({ sessionID, userID }) => {
       // attach the session ID to the next reconnection attempts
       socket.auth = { sessionID };
@@ -144,6 +153,7 @@ function App() {
     socket.on("user disconnected", onUserDisconnected);
     socket.on("user connected", connectionMessage);
     socket.on("tokenValuesUpdate", tokenValues);
+    socket.on("gamePlayUpdates", onMessageUpdate)
 
     return () => {
       socket.off("connect", onConnect);
@@ -181,7 +191,7 @@ function App() {
       {hasSetup ? (
         <>
           <div className="gameTable">
-            {/* <div className="chatBox" /> */}
+            <MessagingArea messages={messages}/>
             <div className="cardsContainers">
                 <TableCards
                   className="tableCardContainer"
