@@ -3,233 +3,251 @@ button {
   width: 20%;
 }
 
-.headerArea{
-    /* border: 2px solid green; */
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 17vh;
-    background-color: #e4eef6;
-    border-radius: 1vw;
+.headerArea {
+  /* border: 2px solid green; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 17vh;
+  background-color: #e4eef6;
+  border-radius: 1vw;
 }
 
-.titleContainer{
-    width: 50%;
+.titleContainer {
+  width: 50%;
 }
 
-.title{
-    text-align: center;
-    font-family: cursive;
-    font-size: 5vw;
-    width: 90%;
-    color: #225bac;
+.title {
+  text-align: center;
+  font-family: cursive;
+  font-size: 5vw;
+  width: 90%;
+  color: #225bac;
 }
 
-.tableHeader{
-    padding: 2vw;
-    color: #225bac;
-    font-family: cursive;
+.tableHeader {
+  padding: 2vw;
+  color: #225bac;
+  font-family: cursive;
 }
 
-.scores{
-    font-size: 1vw;
-    border-radius: 2rem;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    background-color: #91d3f1;
+.scores {
+  font-size: 1vw;
+  border-radius: 2rem;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  background-color: #91d3f1;
 }
 
-.instructionsButton{
-    width: 120px;
-    height: 50px;
-    margin-top: 20px;
-    border-radius: 2rem;
-    background-color: antiquewhite;
-    font-size: medium;
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    background-color: #91d3f1;
+.instructionsButton {
+  width: 120px;
+  height: 50px;
+  margin-top: 20px;
+  border-radius: 2rem;
+  background-color: antiquewhite;
+  font-size: medium;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  background-color: #91d3f1;
 }
 
-.singleCard{
+.singleCard {
   border: 2px solid red;
   width: 200px;
   height: 100px;
 }
 
-.userCardArea{
-    /* border: 2px solid blue; */
-    flex-direction: row;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 100px;
-    padding: 2vw;
-    background-color: #b7b4cebd;
-    border-radius: 2vw;
-    min-height: 30vh;
+.userCardArea {
+  /* border: 2px solid blue; */
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 100px;
+  padding: 2vw;
+  background-color: #b7b4cebd;
+  border-radius: 2vw;
+  min-height: 30vh;
 }
 
-.tableCards{
-    /* border: 2px solid pink; */
-    flex-direction: row;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+.tableCards {
+  /* border: 2px solid pink; */
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.tableCard{
-    width: 8vw;
-    border: 1px solid black;
-    height: 11vw;
-    border-radius: 10px;
-    margin: 1vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2vw;
-    transition: all 0.3s;
-    cursor: pointer;
-  }
-
-.Gold{
-    background-color: gold;
+.tableCard {
+  width: 8vw;
+  border: 1px solid black;
+  height: 11vw;
+  border-radius: 10px;
+  margin: 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2vw;
+  transition: all 0.3s;
+  cursor: pointer;
 }
 
-.Silver{
-    background-color: rgb(207, 206, 206);
+.Gold {
+  background-image: url("./components/assets/gold.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
-.Bronze{
-    background-color: #cd7f32;
+.Silver {
+  background-image: url("./components/assets/silver.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
-.Textile{
-    background-color: rgba(128, 0, 128, 0.637)
+.Bronze {
+  background-image: url("./components/assets/bronze.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
-.Diamond{
-    background-color: rgba(126, 218, 218, 0.281);
+.Textile {
+  background-image: url("./components/assets/textile.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
-.Spice{
-    background-color: rgba(128, 0, 0, 0.685);
+.Diamond {
+  background-image: url("./components/assets/diamond.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
-  .handCard{
-    width: 10vw;
-    border: 1px solid black;
-    height: 15vw;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.3vw;
-    transition: all 0.3s;
-    cursor: pointer;
-    margin: 0.3vw;
-    transition: background-color 0.3s ease;
-  }
+.Spice {
+  background-image: url("./components/assets/spices.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 
-  .modal{
-    background-color: #e4eef6;
-    color: #0b3269;
-  }
+.handCard {
+  width: 10vw;
+  border: 1px solid black;
+  height: 15vw;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.3vw;
+  transition: all 0.3s;
+  cursor: pointer;
+  margin: 0.3vw;
+  transition: background-color 0.3s ease;
+}
 
-  .content{
-    font-size: 1vw;
-  }
+.modal {
+  background-color: #e4eef6;
+  color: #0b3269;
+}
 
-  .close{
-    width: 2vw;
-    height: 4vh;
-  }
+.content {
+  font-size: 1vw;
+}
 
-  @keyframes glow {
-    0% {
-      box-shadow: 0 0 5px #394cb8;
-    }
-    50% {
-      box-shadow: 0 0 15px #3c46d6;
-    }
-    100% {
-      box-shadow: 0 0 5px #4238cc;
-    }
-  }
+.close {
+  width: 2vw;
+  height: 4vh;
+}
 
-  .handCard.selected {
-    background-color: #6580f8;
-    border: 2px solid #00ffff;
-    animation: glow 1s infinite;
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #394cb8;
   }
+  50% {
+    box-shadow: 0 0 15px #3c46d6;
+  }
+  100% {
+    box-shadow: 0 0 5px #4238cc;
+  }
+}
 
-  .tableCard.selected {
-    background-color: #6580f8;
-    border: 2px solid #00ffff;
-    animation: glow 1s infinite;
-  }
+.handCard.selected {
+  background-color: #6580f8;
+  border: 2px solid #00ffff;
+  animation: glow 1s infinite;
+}
 
-  .modal {
-    font-size: 12px;
-  }
-  .modal > .header {
-    width: 100%;
-    border-bottom: 1px solid gray;
-    font-size: 2vw;
-    text-align: center;
-    padding: 5px;
-  }
-  .modal > .content {
-    width: 100%;
-    padding: 10px 5px;
-  }
-  .modal > .actions {
-    width: 100%;
-    padding: 10px 5px;
-    margin: auto;
-    text-align: center;
-  }
-  .modal > .close {
-    cursor: pointer;
-    position: absolute;
-    display: block;
-    padding: 2px 5px;
-    line-height: 20px;
-    right: -10px;
-    top: -10px;
-    font-size: 24px;
-    background: #ffffff;
-    border-radius: 18px;
-    border: 1px solid #cfcece;
-  }
+.tableCard.selected {
+  background-color: #6580f8;
+  border: 2px solid #00ffff;
+  animation: glow 1s infinite;
+}
 
-  .startGameButtonContainer {
-    display: flex;
-    justify-content: center;
-    margin-top: 5%;
-    height: 300px;
-    width: 92%;
-  }
+.modal {
+  font-size: 12px;
+}
+.modal > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 2vw;
+  text-align: center;
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+}
 
-  .startGameButton{
-    border-radius: 5vw;
-    font-size: x-large;
-    margin-left: 10%;
-    height: 10vh;
-    background-color: #e4eef6;
-  }
+.startGameButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+  height: 300px;
+  width: 92%;
+}
 
-  .gameStartedHeader{
-    display: flex;
-    justify-content: center;
-    width: 90%;
-  }
+.startGameButton {
+  border-radius: 5vw;
+  font-size: x-large;
+  margin-left: 10%;
+  height: 10vh;
+  background-color: #e4eef6;
+}
 
-  #opponent-connection-message, 
-  #connection-message {
-    position: absolute;
-    background-color: lightgray;
-    width: 200px;
-    border-radius: 10px;
-  }
+.gameStartedHeader {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+}
+
+#opponent-connection-message,
+#connection-message {
+  position: absolute;
+  background-color: lightgray;
+  width: 200px;
+  border-radius: 10px;
+}
