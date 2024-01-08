@@ -21,6 +21,7 @@ const EndTurn = ({ turnEnded, setTurnEnded, selectedTableCards, selectedHandCard
     } else if(selectedHandCards.length > 0 && selectedTableCards.length === 0 && selectedHandCards.every((card) => card.card_type === selectedHandCards[0].card_type)) {
       setAction('sellCardFromHand')
       setPayload({cards: selectedHandCards})
+
     } else if(selectedHandCards.length === selectedTableCards.length) {
       setAction('cardSwap')
       setPayload({handCards: selectedHandCards, tableCards: selectedTableCards})
@@ -38,7 +39,7 @@ const EndTurn = ({ turnEnded, setTurnEnded, selectedTableCards, selectedHandCard
   return (
     <button
       className={`endTurnButton ${action}`}
-      disabled={!turnEnded}
+      disabled={!turnEnded || action==="Invalid Move" || action==="Your turn"}
       onClick={handleClick}
     >{turnEnded ? `${actionLookup[action]}`: "Opponents Turn!"}
     </button>

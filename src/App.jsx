@@ -13,6 +13,7 @@ import ConnectionMessage from "./components/ConnectionMessage";
 import DisconnectMessage from "./components/disconnectMessage";
 import { generateUsername } from "unique-username-generator";
 import MessagingArea from "./components/MessagingArea";
+import { useSpring, animated } from "@react-spring/web";
 
 socket.auth = { username: generateUsername("-", 0, 10) };
 const sessionID = sessionStorage.getItem("sessionID");
@@ -160,6 +161,11 @@ function App() {
     };
   }, []);
 
+  const springs = useSpring({
+    from: { x: 0, y: 0 },
+    to: { x: 100, y: 100 },
+  });
+
   // console.log(isConnected);
   // console.log(socket);
   // console.log(hasStarted);
@@ -187,14 +193,14 @@ function App() {
           <div className="gameTable">
             <MessagingArea messages={messages}/>
             <div className="cardsContainers">
-              <TableCards
-                className="tableCardContainer"
-                tableCards={tableCards}
-                turnEnded={turnEnded}
-                setTurnEnded={setTurnEnded}
-                selectedTableCards={selectedTableCards}
-                setSelectedTableCards={setSelectedTableCards}
-              />
+                <TableCards
+                  className="tableCardContainer"
+                  tableCards={tableCards}
+                  turnEnded={turnEnded}
+                  setTurnEnded={setTurnEnded}
+                  selectedTableCards={selectedTableCards}
+                  setSelectedTableCards={setSelectedTableCards}
+                />
               <HandCards
                 className="handCardContainer"
                 handCards={handCards}

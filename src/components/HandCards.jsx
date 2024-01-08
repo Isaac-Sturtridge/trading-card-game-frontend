@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { HandCard } from "./HandCard";
-import { socket } from "../socket";
 
 export const HandCards = ({
   handCards,
@@ -9,36 +7,20 @@ export const HandCards = ({
   selectedHandCards,
   setSelectedHandCards,
 }) => {
-  const handleHandCardClick = (card) => {
-    setSelectedHandCards((previous) => {
-      if (!previous.includes(card)) {
-        return [...previous, card];
-      }
-      return [...previous].filter((currentCard) => card !== currentCard);
-    });
-    // socket.emit("sellCardFromHand", { cards: [{ card_id: card }] });
-  };
-  const handleCardSwapClick = () => {
-    //   socket.emit("cardSwap", {});
-  };
-
   return (
     <>
       <div className="userCardArea">
         {handCards.map((card) => {
           return (
-            <button
-              className={`handCard ${card.card_type} ${
-                selectedHandCards.includes(card) ? "selected" : ""
-              }`}
-              disabled={!turnEnded}
+            <HandCard
               key={card.card_id}
-              onClick={() => {
-                handleHandCardClick(card);
-              }}
-            >
-              {/* {card.card_type} */}
-            </button>
+              card={card}
+              handCards={handCards}
+              turnEnded={turnEnded}
+              setTurnEnded={setTurnEnded}
+              selectedHandCards={selectedHandCards}
+              setSelectedHandCards={setSelectedHandCards}
+            />
           );
         })}
       </div>
