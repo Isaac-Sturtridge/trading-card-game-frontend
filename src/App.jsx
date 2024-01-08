@@ -117,9 +117,9 @@ function App() {
       }, 3000);
     };
 
-    const onMessageUpdate = (message) => {
+    const onMessageUpdate = ({msg}) => {
       setMessages((previous) => {
-        return [...previous, message]
+        return [...previous, msg]
       })
     }
 
@@ -151,7 +151,8 @@ function App() {
     socket.on("user disconnected", onUserDisconnected);
     socket.on("user connected", connectionMessage);
     socket.on("tokenValuesUpdate", tokenValues);
-    socket.on("messageUpdate", onMessageUpdate)
+    socket.on("gamePlayUpdates", onMessageUpdate)
+    socket.on("gameOver", onGameOver) // playerScores & msg
 
     return () => {
       socket.off("connect", onConnect);
