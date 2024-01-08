@@ -9,6 +9,16 @@ export const TableCard = ({
   selectedTableCards,
   setSelectedTableCards,
 }) => {
+  const mountedSpring = useSpring({
+    from: {x: -2000, y:0},
+    to: {x:0, y:0},
+    delay: (tableCards.length - tableCards.indexOf(card) + 1) * 500,
+    config: {
+      mass: 5,
+      tension: 280,
+      friction: 100,
+    }
+  })
   const [springs, api] = useSpring(() => ({
     from: { x: 0, y: 0 },
   }));
@@ -30,6 +40,10 @@ export const TableCard = ({
         ...springs,
       }}
     >
+      <animated.div
+      style={{
+        ...mountedSpring,
+      }}>
       <button
         className={`tableCard ${card.card_type} ${
           selectedTableCards.includes(card) ? "selected" : ""
@@ -54,6 +68,7 @@ export const TableCard = ({
       >
         {card.card_type}
       </button>
+      </animated.div>
     </animated.div>
   );
 };

@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { socket } from "../socket";
-import { useSpring, animated } from "@react-spring/web";
+import { useSpring, animated, useTransition } from "@react-spring/web";
 
 export const HandCard = ({
   card,
@@ -8,9 +9,24 @@ export const HandCard = ({
   turnEnded,
   setSelectedHandCards,
 }) => {
+  const mountedSpring = useSpring({
+    from: {x: -2000, y:0},
+    to: {x:0, y:0},
+    delay: (handCards.length - handCards.indexOf(card) + 1) * 500,
+    config: {
+      mass: 5,
+      tension: 280,
+      friction: 100,
+    }
+  })
   const [springs, api] = useSpring(() => ({
-    from: { x: 0, y: 0 },
-  }));
+    from: { x: 0, y: 0 }
+  // }));
+  // const [transition, transApi] = useTransition(() => ({
+  //   from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
+  // //   enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+  //   leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
+  }))
 
   const handleHandCardClick = (card) => {
     setSelectedHandCards((previous) => {
@@ -26,9 +42,14 @@ export const HandCard = ({
     <animated.div
       key={card.card_id}
       style={{
-        ...springs,
+        ...springs
       }}
     >
+      <animated.div
+      style={{
+        ...mountedSpring
+      }}
+      >
       <button
         className={`handCard ${card.card_type} ${
           selectedHandCards.includes(card) ? "selected" : ""
@@ -52,6 +73,7 @@ export const HandCard = ({
       >
         {card.card_type}
       </button>
+      </animated.div>
     </animated.div>
-  );
+  )
 };
