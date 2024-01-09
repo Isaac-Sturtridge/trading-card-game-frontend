@@ -66,7 +66,6 @@ export const TableCard = ({
 
         }}
       >
-        {card.card_type}
       </button>
       </animated.div>
     </animated.div>

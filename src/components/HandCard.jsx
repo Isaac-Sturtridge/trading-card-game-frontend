@@ -71,7 +71,6 @@ export const HandCard = ({
           }
         }}
       >
-        {card.card_type}
       </button>
       </animated.div>
     </animated.div>
