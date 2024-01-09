@@ -39,7 +39,7 @@ function App() {
   const [selectedHandCards, setSelectedHandCards] = useState([]);
   const [selectedTableCards, setSelectedTableCards] = useState([]);
   const [startMessage, setStartMessage] = useState(false);
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -82,10 +82,10 @@ function App() {
       setScore(playerScores);
     };
 
-    const onGameOver = ({playerScores, msg}) => {
+    const onGameOver = ({ playerScores, msg }) => {
       setGameOver(true);
       setHasStarted(false);
-		console.log(msg)
+      console.log(msg);
     };
 
     const onTurnChange = (playersTurn) => {
@@ -119,11 +119,11 @@ function App() {
       }, 3000);
     };
 
-    const onMessageUpdate = ({msg}) => {
+    const onMessageUpdate = ({ msg }) => {
       setMessages((previous) => {
-        return [...previous, msg]
-      })
-    }
+        return [...previous, msg];
+      });
+    };
 
     const sessionManagement = ({ sessionID, userID }) => {
       // attach the session ID to the next reconnection attempts
@@ -153,7 +153,7 @@ function App() {
     socket.on("user disconnected", onUserDisconnected);
     socket.on("user connected", connectionMessage);
     socket.on("tokenValuesUpdate", tokenValues);
-    socket.on("gamePlayUpdates", onMessageUpdate)
+    socket.on("gamePlayUpdates", onMessageUpdate);
 
     return () => {
       socket.off("connect", onConnect);
@@ -191,16 +191,16 @@ function App() {
       {hasSetup ? (
         <>
           <div className="gameTable">
-            <MessagingArea messages={messages}/>
+            <MessagingArea messages={messages} />
             <div className="cardsContainers">
-                <TableCards
-                  className="tableCardContainer"
-                  tableCards={tableCards}
-                  turnEnded={turnEnded}
-                  setTurnEnded={setTurnEnded}
-                  selectedTableCards={selectedTableCards}
-                  setSelectedTableCards={setSelectedTableCards}
-                />
+              <TableCards
+                className="tableCardContainer"
+                tableCards={tableCards}
+                turnEnded={turnEnded}
+                setTurnEnded={setTurnEnded}
+                selectedTableCards={selectedTableCards}
+                setSelectedTableCards={setSelectedTableCards}
+              />
               <HandCards
                 className="handCardContainer"
                 handCards={handCards}
@@ -216,6 +216,7 @@ function App() {
                 setTurnEnded={setTurnEnded}
                 selectedHandCards={selectedHandCards}
                 selectedTableCards={selectedTableCards}
+                handCards={handCards}
               />
             </div>
           </div>
