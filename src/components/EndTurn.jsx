@@ -20,7 +20,7 @@ const EndTurn = ({
 		maxCards: 'Max card reached',
 	});
 
-	console.log(handCards.length);
+	// console.log(handCards.length);
 
 	const handCardLength = () => {
 		return handCards.filter((card) => card.card_type !== 'Camel').length;
@@ -41,7 +41,6 @@ const EndTurn = ({
 		const tCardsCount = countCardType(tableCards);
 		const selTableCardsCount = countCardType(selectedTableCards);
 
-		console.log(tCardsCount, selTableCardsCount);
 		// more than one card selected check that all the camels have been selected
 		if (
 			tCardsCount.hasOwnProperty('Camel') &&
@@ -57,34 +56,36 @@ const EndTurn = ({
 			}
 		}
 		// otherwise only one card should can be selected
-		else if (selectedTableCards.length === 1) return true;
-		else {
-			console.log('You can only take one type of good from the table.');
-			return false;
-		}
+		else if (selectedTableCards.length > 1) {
+			console.log('Take only one card from the table.');
+			return true;
+		} else return false;
 	};
 
 	const validHandSelection = () => {
+		// if the player has selected any camels to sell return false
 		if (selectedHandCards.some((card) => card.card_type === 'Camel')) {
-			console.log(`You can't sell a camel!`);
-			return false;
-		} else if (
-			selectedHandCards.every(
-				(card) => card.card_type === selectedHandCards[0].card_type
-			)
-		)
-			return true;
-		else {
-			console.log('You can only sell the same type of good!');
+			console.log(`Camels can not be sold!`);
 			return false;
 		}
+		// check that every good selected is of the same type
+		else if (
+			!selectedHandCards.every(
+				(card) => card.card_type === selectedHandCards[0].card_type
+			)
+		) {
+			console.log('Only goods of the same kind can be sold!');
+			return false;
+		} else return true;
 	};
 
 	const validSwapSelection = () => {
 		// check if the player is trying to swap one good only
 		// if so return false
 		if (selectedHandCards.length === 1) {
-			console.log(`You can't swap one hand card for one table card.`);
+			console.log(
+				`Two or more cards must be swaped and of different kinds.`
+			);
 			return false;
 		}
 		// otherwise create a set of the unique goods up for swap
@@ -97,29 +98,36 @@ const EndTurn = ({
 		const arr1Set = [...new Set(extractedTableCards).values()];
 		const arr2Set = [...new Set(extractedHandCards).values()];
 		// console.log(arr1Set, arr2Set);
+		// check if goods in one set are present in the other,
+		// if so return false because the player the player can only swap goods of a different kind.
 		if (
-			!arr2Set.some((x) => {
+			arr2Set.some((x) => {
 				return arr1Set.includes(x);
 			})
 		) {
-			const outcomeSwap =
-				handCards.length -
-				selectedHandCards.filter((card) => {
-					card.card_type;
-				}).length +
-				selectedTableCards.filter((card) => {
-					card.card_type;
-				}).length;
-			if (outcomeSwap > 7) {
-				console.log(
-					`Swap cards so you have up to a max of 7 goods in you hand!`
-				);
-				return false;
-			} else return true;
-		} else {
 			console.log(`You can only swap goods of a different kind.`);
 			return false;
 		}
+
+		// calculate how many goods this swap will leave in the player's hand
+		const outcomeSwap =
+			handCards.length -
+			selectedHandCards.filter((card) => {
+				card.card_type;
+			}).length +
+			selectedTableCards.filter((card) => {
+				card.card_type;
+			}).length;
+		// if the swap will result in more than 7 goods in the players hand
+		// return false
+		if (outcomeSwap > 7) {
+			console.log(
+				`Swap cards so you have up to a max of 7 goods in you hand!`
+			);
+			return false;
+		}
+		// this swap is valid
+		else return true;
 	};
 
 	useEffect(() => {
