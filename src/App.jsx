@@ -15,8 +15,11 @@ import { generateUsername } from "unique-username-generator";
 import MessagingArea from "./components/MessagingArea";
 import { useSpring, animated } from "@react-spring/web";
 
-socket.auth = { username: generateUsername("-", 0, 10) };
-const sessionID = sessionStorage.getItem("sessionID");
+socket.auth = {
+	username: generateUsername('-', 0, 10),
+	room: process.env.NODE_ENV,
+};
+const sessionID = sessionStorage.getItem('sessionID');
 if (sessionID) {
   socket.auth = { sessionID };
 }
@@ -217,6 +220,7 @@ function App() {
                 selectedHandCards={selectedHandCards}
                 selectedTableCards={selectedTableCards}
                 handCards={handCards}
+								tableCards={tableCards}
               />
             </div>
           </div>
