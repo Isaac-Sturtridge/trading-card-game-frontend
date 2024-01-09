@@ -58,18 +58,36 @@ const EndTurn = ({
 		}
 		// otherwise only one card should can be selected
 		else if (selectedTableCards.length === 1) return true;
-		else false;
+		else {
+			console.log('You can only take one type of good from the table.');
+			return false;
+		}
 	};
 
 	const validHandSelection = () => {
-		return (
+		if (selectedHandCards.some((card) => card.card_type === 'Camel')) {
+			console.log(`You can't sell a camel!`);
+			return false;
+		} else if (
 			selectedHandCards.every(
 				(card) => card.card_type === selectedHandCards[0].card_type
-			) && selectedHandCards.some((card) => card.card_type !== 'Camel')
-		);
+			)
+		)
+			return true;
+		else {
+			console.log('You can only sell the same type of good!');
+			return false;
+		}
 	};
 
 	const validSwapSelection = () => {
+		// check if the player is trying to swap one good only
+		// if so return false
+		if (selectedHandCards.length === 1) {
+			console.log(`You can't swap one hand card for one table card.`);
+			return false;
+		}
+		// otherwise create a set of the unique goods up for swap
 		const extractedTableCards = selectedTableCards.map(
 			(card) => card.card_type
 		);
@@ -79,10 +97,29 @@ const EndTurn = ({
 		const arr1Set = [...new Set(extractedTableCards).values()];
 		const arr2Set = [...new Set(extractedHandCards).values()];
 		// console.log(arr1Set, arr2Set);
-		return !arr2Set.some((x) => {
-			console.log(arr1Set.includes(x), x);
-			return arr1Set.includes(x);
-		});
+		if (
+			!arr2Set.some((x) => {
+				return arr1Set.includes(x);
+			})
+		) {
+			const outcomeSwap =
+				handCards.length -
+				selectedHandCards.filter((card) => {
+					card.card_type;
+				}).length +
+				selectedTableCards.filter((card) => {
+					card.card_type;
+				}).length;
+			if (outcomeSwap > 7) {
+				console.log(
+					`Swap cards so you have up to a max of 7 goods in you hand!`
+				);
+				return false;
+			} else return true;
+		} else {
+			console.log(`You can only swap goods of a different kind.`);
+			return false;
+		}
 	};
 
 	useEffect(() => {
@@ -109,7 +146,7 @@ const EndTurn = ({
 			setPayload({ cards: selectedHandCards });
 			// swap cards
 		} else if (
-			selectedHandCards.length > 1 &&
+			// selectedHandCards.length > 1 &&
 			selectedHandCards.length === selectedTableCards.length &&
 			validSwapSelection()
 		) {
@@ -118,7 +155,7 @@ const EndTurn = ({
 				handCards: selectedHandCards,
 				tableCards: selectedTableCards,
 			});
-		} else if (handCardLength() >= 7) {
+		} else if (handCardLength() > 7) {
 			setAction('maxCards');
 		} else {
 			setAction('Invalid Move');
