@@ -251,3 +251,23 @@ button {
   width: 200px;
   border-radius: 10px;
 }
+
+.messagingArea {
+  border: 1px solid red;
+  border-radius: 0.5rem;
+
+  height: 200px;
+  overflow-y: auto;
+  font-size: 1vw;
+
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: #ffffff;
+}
+
+.messaging-container {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  text-align: center;
+}
