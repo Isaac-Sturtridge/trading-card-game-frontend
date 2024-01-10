@@ -4,7 +4,7 @@ const OpponentCards = ({ opponentHand }) => {
   return (
     <div className="opponentCardArea">
       {Array.from({ length: opponentHand }, (_, i) => (
-        <div className="opponentCardBack"></div>
+        <div className="opponentCardBack" key={i}></div>
       ))}
     </div>
   );
