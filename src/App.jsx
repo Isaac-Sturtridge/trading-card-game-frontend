@@ -15,6 +15,8 @@ import { generateUsername } from "unique-username-generator";
 import MessagingArea from "./components/MessagingArea";
 import { useSpring, animated } from "@react-spring/web";
 import { TokensContainer } from "./components/TokensContainer";
+import CardsInDeck from "./components/CardsInDeck";
+import OpponentCards from "./components/OpponentCards";
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
@@ -36,6 +38,8 @@ function App() {
   const [startMessage, setStartMessage] = useState(false);
   const [messages, setMessages] = useState([]);
   const [tokens, setTokens] = useState({});
+  const [cardsInDeckDisplay, setCardsInDeckDisplay] = useState(29);
+  const [opponentHand, setOpponentHand] = useState(5);
   const [onStartButton, setOnStartButton] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [roomName, setRoomName] = useState("");
@@ -142,6 +146,14 @@ function App() {
       });
     };
 
+    const OnCardsInDeck = ({ cardsInDeck }) => {
+      setCardsInDeckDisplay(cardsInDeck);
+    };
+
+    const onOpponentHand = ({ opponentHandUpdate }) => {
+      setOpponentHand(opponentHandUpdate);
+    };
+
     const sessionManagement = ({ sessionID, userID }) => {
       // attach the session ID to the next reconnection attempts
       socket.auth = { sessionID };
@@ -172,6 +184,8 @@ function App() {
     socket.on("user connected", connectionMessage);
     socket.on("tokenValuesUpdate", tokenValues);
     socket.on("gamePlayUpdates", onMessageUpdate);
+    socket.on("cardsInDeckUpdate", OnCardsInDeck);
+    socket.on("opponentHandUpdate", onOpponentHand);
 
     return () => {
       socket.off("connect", onConnect);
@@ -214,8 +228,12 @@ function App() {
       {hasSetup ? (
         <>
           <div className="gameTable">
-            <MessagingArea messages={messages} />
+            <div className="side-bar">
+              <MessagingArea messages={messages} />
+              <CardsInDeck cardsInDeckDisplay={cardsInDeckDisplay} />
+            </div>
             <div className="cardsContainers">
+              <OpponentCards opponentHand={opponentHand} />
               <TableCards
                 className="tableCardContainer"
                 tableCards={tableCards}
