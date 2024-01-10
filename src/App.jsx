@@ -15,12 +15,13 @@ import { generateUsername } from "unique-username-generator";
 import MessagingArea from "./components/MessagingArea";
 import { useSpring, animated } from "@react-spring/web";
 import { TokensContainer } from "./components/TokensContainer";
+import CardsInDeck from "./components/CardsInDeck";
 
 socket.auth = {
-	username: generateUsername('-', 0, 10),
-	room: process.env.NODE_ENV,
+  username: generateUsername("-", 0, 10),
+  room: process.env.NODE_ENV,
 };
-const sessionID = sessionStorage.getItem('sessionID');
+const sessionID = sessionStorage.getItem("sessionID");
 if (sessionID) {
   socket.auth = { sessionID };
 }
@@ -45,6 +46,7 @@ function App() {
   const [startMessage, setStartMessage] = useState(false);
   const [messages, setMessages] = useState([]);
   const [tokens, setTokens] = useState({});
+  const [cardsInDeckDisplay, setCardsInDeckDisplay] = useState(29);
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -64,7 +66,7 @@ function App() {
       setHasSetup(true);
       setHasStarted(true);
       setStartMessage(true);
-      setTokens(res.tokenValues)
+      setTokens(res.tokenValues);
       setTimeout(() => {
         setStartMessage(false);
       }, 3000);
@@ -131,6 +133,10 @@ function App() {
       });
     };
 
+    const OnCardsInDeck = ({ cardsInDeck }) => {
+      setCardsInDeckDisplay(cardsInDeck);
+    };
+
     const sessionManagement = ({ sessionID, userID }) => {
       // attach the session ID to the next reconnection attempts
       socket.auth = { sessionID };
@@ -161,6 +167,7 @@ function App() {
     socket.on("user connected", connectionMessage);
     socket.on("tokenValuesUpdate", tokenValues);
     socket.on("gamePlayUpdates", onMessageUpdate);
+    socket.on("cardsInDeckUpdate", OnCardsInDeck);
 
     return () => {
       socket.off("connect", onConnect);
@@ -198,7 +205,10 @@ function App() {
       {hasSetup ? (
         <>
           <div className="gameTable">
-            <MessagingArea messages={messages} />
+            <div className="side-bar">
+              <MessagingArea messages={messages} />
+              <CardsInDeck cardsInDeckDisplay={cardsInDeckDisplay} />
+            </div>
             <div className="cardsContainers">
               <TableCards
                 className="tableCardContainer"
@@ -224,7 +234,7 @@ function App() {
                 selectedHandCards={selectedHandCards}
                 selectedTableCards={selectedTableCards}
                 handCards={handCards}
-								tableCards={tableCards}
+                tableCards={tableCards}
               />
             </div>
             <div className="tokensContainer">
