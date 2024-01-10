@@ -1,6 +1,6 @@
 import { socket } from "../socket";
 
-const GameOver = ({ score, usernames }) => {
+const GameOver = ({ score, usernames, gameOverReasonDisplay }) => {
   let player, opponent;
   for (const user in usernames) {
     if (usernames[user].userID === socket.userID) {
@@ -18,11 +18,12 @@ const GameOver = ({ score, usernames }) => {
     }
   }
   return (
-    <>
+    <div className="gameOverContainer">
+      <p className="reasonText">{gameOverReasonDisplay}</p>
       {playerScore > opponentScore ? (
-        <h2>You won!</h2>
+        <h2 className="winnerText">You won!</h2>
       ) : (
-        <h2>{opponent} won!</h2>
+        <h2 className="winnerText">{opponent} won!</h2>
       )}{" "}
       <h2>
         {player}: {playerScore || 0}
@@ -30,7 +31,7 @@ const GameOver = ({ score, usernames }) => {
       <h2>
         {opponent}: {opponentScore || 0}
       </h2>
-    </>
+    </div>
   );
 };
 export default GameOver;

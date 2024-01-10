@@ -51,6 +51,7 @@ function App() {
   const [tokens, setTokens] = useState({});
   const [cardsInDeckDisplay, setCardsInDeckDisplay] = useState(29);
   const [opponentHand, setOpponentHand] = useState(5);
+  const [gameOverReasonDisplay, setGameOverReasonDisplay] = useState("");
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -96,10 +97,11 @@ function App() {
       setScore(playerScores);
     };
 
-    const onGameOver = ({ playerScores, msg }) => {
+    const onGameOver = ({ playerScores, msg, gameOverReason }) => {
       setGameOver(true);
       setHasStarted(false);
       setHasSetup(false);
+      setGameOverReasonDisplay(gameOverReason);
       console.log(msg);
     };
 
@@ -269,7 +271,13 @@ function App() {
               &times;
             </button>
             <div className="header">Game Over</div>
-            {gameOver ? <GameOver score={score} usernames={usernames} /> : null}
+            {gameOver ? (
+              <GameOver
+                score={score}
+                usernames={usernames}
+                gameOverReasonDisplay={gameOverReasonDisplay}
+              />
+            ) : null}
           </div>
         )}
       </Popup>
