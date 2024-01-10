@@ -92,6 +92,63 @@ body {
   }
 }
 
+.Diamond.selected {
+  animation: blueGlow 1s infinite;
+}
+
+.Gold.selected {
+  animation: goldGlow 1s infinite;
+}
+
+.Silver.selected {
+  animation: silverGlow 1s infinite;
+}
+.Bronze.selected {
+  animation: bronzeGlow 1s infinite;
+}
+.Textile.selected {
+  animation: greenGlow 1s infinite;
+}
+
+.Spice.selected {
+  animation: brownGlow 1s infinite;
+}
+
+@keyframes brownGlow {
+  0% {
+    box-shadow: 0 0 10px #d86900;
+  }
+  50% {
+    box-shadow: 0 0 30px #aa5200;
+  }
+  100% {
+    box-shadow: 0 0 10px #703600;
+  }
+}
+
+@keyframes silverGlow {
+  0% {
+    box-shadow: 0 0 10px #cfcfcf;
+  }
+  50% {
+    box-shadow: 0 0 30px #9f9f9f;
+  }
+  100% {
+    box-shadow: 0 0 10px #737373;
+  }
+}
+@keyframes bronzeGlow {
+  0% {
+    box-shadow: 0 0 10px #ff9c40;
+  }
+  50% {
+    box-shadow: 0 0 30px #f27500;
+  }
+  100% {
+    box-shadow: 0 0 10px #d46600;
+  }
+}
+
 .endTurnButton.addCardToHand {
   background-color: rgb(65, 223, 65);
   animation: greenGlow 1s infinite;
@@ -158,6 +215,7 @@ body {
   font-family: "Trocchi", sans-serif;
   font-weight: bold;
   text-align: center;
+  color: #d80202;
 }
 
 .BronzeValue {

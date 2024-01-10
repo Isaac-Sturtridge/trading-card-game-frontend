@@ -32,7 +32,7 @@ button {
 
 .tableHeader {
   padding: 2vw;
-  color: darkgreen;
+  color: #d80202;
   font-family: "Trocchi", sans-serif;
 }
 
@@ -42,12 +42,15 @@ button {
   padding-left: 1vw;
   padding-right: 1vw;
   font-family: "Trocchi", sans-serif;
-  color: #000000;
-  border: 1px solid black;
-  background-color: rgb(240, 90, 240);
+  color: #ffffff;
+  /* border: 1px solid black; */
+  /* background-color: rgb(240, 90, 240); */
+  background-color: #d80202;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .instructionsButton {
+  color: #ffffff;
   width: 120px;
   height: 50px;
   margin-top: 20px;
@@ -58,7 +61,8 @@ button {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  background-color: rgb(240, 90, 240);
+  /* background-color: rgb(240, 90, 240); */
+  background-color: #d80202;
 }
 
 .singleCard {
@@ -142,6 +146,9 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+.Spice.selected {
+  animation: brownGlow;
 }
 
 .handCard {
