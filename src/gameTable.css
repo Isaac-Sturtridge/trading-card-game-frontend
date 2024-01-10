@@ -1,15 +1,15 @@
-.gameTable{
-    /* border: 2px solid red; */
-    display: flex;
-    background-color: #ffffff57;
-    border-radius: 2vw;
+.gameTable {
+  /* border: 2px solid red; */
+  display: flex;
+  background-color: #ffffff57;
+  border-radius: 2vw;
 }
 
-body{
+body {
   background-color: #ff7700da;
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23cc0000' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23aa0000' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23d6002b' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%23b10022' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23d9004b' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%23b2003d' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23d3006c' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%23ac0057' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23c4008c' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%239e0071' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%23aa00aa' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%23880088' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
-background-attachment: fixed;
-background-size: cover;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23cc0000' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23aa0000' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23d6002b' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%23b10022' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23d9004b' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%23b2003d' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23d3006c' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%23ac0057' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23c4008c' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%239e0071' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%23aa00aa' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%23880088' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 /* .chatBox{
@@ -20,236 +20,269 @@ background-size: cover;
     height: 40vh;
 } */
 
-.cardsContainers{
-    width: 90%;
-    margin-left: 10%;
+.cardsContainers {
+  width: 90%;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.tableCardContainer{
-    display: flex;
-    flex-direction: column;
+.tableCardContainer {
+  display: flex;
+  flex-direction: column;
 }
 
-.handCardContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.handCardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.endTurnButtonContainer{
-    width: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10vw;
-    /* border: 2px solid red; */
+.endTurnButtonContainer {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10vw;
+  /* border: 2px solid red; */
 }
 
-.endTurnButton{
-    border-radius: 4rem;
-    width: 100%;
-    font-size: 1.7vw;
-    font-family: cursive;
-    margin-right: 20%;
+.endTurnButton {
+  border-radius: 4rem;
+  width: 100%;
+  font-size: 1.7vw;
+  font-family: cursive;
+  margin-right: 20%;
 }
 
 @keyframes greenGlow {
-    0% {
-      box-shadow: 0 0 10px #24e90a;
-    }
-    50% {
-      box-shadow: 0 0 30px #10aa02;
-    }
-    100% {
-      box-shadow: 0 0 10px #15e40e;
-    }
+  0% {
+    box-shadow: 0 0 10px #24e90a;
   }
-
-  @keyframes blueGlow {
-    0% {
-      box-shadow: 0 0 10px #0db2e4;
-    }
-    50% {
-      box-shadow: 0 0 30px #0978d3;
-    }
-    100% {
-      box-shadow: 0 0 10px #0a3dc9;
-    }
+  50% {
+    box-shadow: 0 0 30px #10aa02;
   }
-
-  @keyframes goldGlow {
-    0% {
-      box-shadow: 0 0 10px #f0ec07;
-    }
-    50% {
-      box-shadow: 0 0 30px #d3be06;
-    }
-    100% {
-      box-shadow: 0 0 10px #eed706;
-    }
+  100% {
+    box-shadow: 0 0 10px #15e40e;
   }
-
-.endTurnButton.addCardToHand{
-    background-color: rgb(65, 223, 65);
-    animation: greenGlow 1s infinite;
-    
 }
 
-.endTurnButton.addCardToHand:hover{
+@keyframes blueGlow {
+  0% {
+    box-shadow: 0 0 10px #0db2e4;
+  }
+  50% {
+    box-shadow: 0 0 30px #0978d3;
+  }
+  100% {
+    box-shadow: 0 0 10px #0a3dc9;
+  }
+}
+
+@keyframes goldGlow {
+  0% {
+    box-shadow: 0 0 10px #f0ec07;
+  }
+  50% {
+    box-shadow: 0 0 30px #d3be06;
+  }
+  100% {
+    box-shadow: 0 0 10px #eed706;
+  }
+}
+
+.endTurnButton.addCardToHand {
+  background-color: rgb(65, 223, 65);
+  animation: greenGlow 1s infinite;
+}
+
+.endTurnButton.addCardToHand:hover {
   background-color: rgb(0, 255, 0);
   animation: greenGlow 1s infinite;
   transform: translateY(-6px);
 }
 
-.endTurnButton.sellCardFromHand{
-    background-color: rgb(235, 215, 35);
-    border: 2px solid gold;
-    animation: goldGlow 1s infinite
+.endTurnButton.sellCardFromHand {
+  background-color: rgb(235, 215, 35);
+  border: 2px solid gold;
+  animation: goldGlow 1s infinite;
 }
 
-.endTurnButton.sellCardFromHand:hover{
+.endTurnButton.sellCardFromHand:hover {
   background-color: rgb(255, 230, 0);
   border: 2px solid gold;
   animation: goldGlow 1s infinite;
   transform: translateY(-6px);
 }
 
-.endTurnButton.cardSwap{
-    background-color: rgb(38, 158, 228);
-    animation: blueGlow 1s infinite
+.endTurnButton.cardSwap {
+  background-color: rgb(38, 158, 228);
+  animation: blueGlow 1s infinite;
 }
 
-.endTurnButton.cardSwap:hover{
+.endTurnButton.cardSwap:hover {
   background-color: rgb(0, 204, 255);
   animation: blueGlow 1s infinite;
   transform: translateY(-6px);
 }
 
-.tableHeader{
-    display: flex;
-    justify-content: center;
-    margin: 0;
+.tableHeader {
+  display: flex;
+  justify-content: center;
+  margin: 0;
 }
 
-.swapCardsbutton{
-    border-radius: 4rem;
-    width: 7vw;
-    font-size: x-large;
-    font-family: cursive;
+.swapCardsbutton {
+  border-radius: 4rem;
+  width: 7vw;
+  font-size: x-large;
+  font-family: cursive;
 }
 
-.tokensContainer{
+.tokensContainer {
   width: 5.5vw;
 }
 
-.tokenPic{
+.tokenPic {
   height: 12vh;
 }
 
-.tokenHeader{
+.tokenHeader {
   padding-top: 1vh;
-  font-family: 'Trocchi', sans-serif;
+  font-family: "Trocchi", sans-serif;
   font-weight: bold;
   text-align: center;
 }
 
-.BronzeValue{
+.BronzeValue {
   position: absolute;
   top: 37%;
   left: 48%;
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
   font-size: 4vw;
   color: gold;
-  font-family: 'Trocchi', sans-serif;
+  font-family: "Trocchi", sans-serif;
   transform: translate(-50%, -50%);
 }
 
-.DiamondValue{
+.DiamondValue {
   position: absolute;
   top: 32%;
   left: 50%;
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
   font-size: 4vw;
   color: gold;
-  font-family: 'Trocchi', sans-serif;
+  font-family: "Trocchi", sans-serif;
   transform: translate(-50%, -50%);
 }
 
-.GoldValue{
+.GoldValue {
   position: absolute;
   top: 40%;
   left: 48%;
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
   font-size: 4vw;
   color: gold;
-  font-family: 'Trocchi', sans-serif;
+  font-family: "Trocchi", sans-serif;
   transform: translate(-50%, -50%);
 }
 
-.SilverValue{
+.SilverValue {
   position: absolute;
   top: 35%;
   left: 50%;
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
   font-size: 4vw;
   color: gold;
-  font-family: 'Trocchi', sans-serif;
+  font-family: "Trocchi", sans-serif;
   transform: translate(-50%, -50%);
 }
 
-.TextileValue{
+.TextileValue {
   position: absolute;
   top: 33%;
   left: 50%;
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
   font-size: 4vw;
   color: gold;
-  font-family: 'Trocchi', sans-serif;
+  font-family: "Trocchi", sans-serif;
   transform: translate(-50%, -50%);
 }
 
-.SpiceValue{
+.SpiceValue {
   position: absolute;
   top: 33%;
   left: 50%;
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
   font-size: 4vw;
   color: gold;
-  font-family: 'Trocchi', sans-serif;
+  font-family: "Trocchi", sans-serif;
   transform: translate(-50%, -50%);
 }
 
-.tokens{
+.tokens {
   border: 2px solid red;
 }
 
-#BronzeToken{
+#BronzeToken {
   width: 100%;
   margin-top: 1vh;
   padding-bottom: 2vh;
 }
 
-#DiamondToken{
+#DiamondToken {
   width: 100%;
   padding-bottom: 2vh;
 }
 
-#GoldToken{
+#GoldToken {
   width: 100%;
   padding-bottom: 2vh;
 }
 
-#SilverToken{
+#SilverToken {
   width: 100%;
   padding-bottom: 2vh;
 }
 
-#SpiceToken{
-  width: 100%;  
+#SpiceToken {
+  width: 100%;
   padding-bottom: 2vh;
 }
 
-#TextileToken{
+#TextileToken {
   width: 100%;
   padding-bottom: 2vh;
+}
+
+.opponentCardArea {
+  display: flex;
+  flex-direction: row;
+  width: 30vw;
+  height: 5vw;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 2vw;
+  background-color: #d3d2dd80;
+  border-radius: 2vw;
+}
+
+.opponentCardBack {
+  width: 3vw;
+  border: 1px solid black;
+  height: 5vw;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.3vw;
+  transition: all 0.3s;
+  cursor: pointer;
+  margin: 0.3vw;
+  transition: background-color 0.3s ease;
+  background-image: url("./components/assets/opponent-card.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
