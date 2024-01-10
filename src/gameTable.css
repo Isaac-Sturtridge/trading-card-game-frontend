@@ -127,6 +127,11 @@ body {
   transform: translateY(-6px);
 }
 
+.endTurnButton.yourTurn {
+  background-color: rgb(38, 158, 228);
+  animation: blueGlow 1s infinite;
+}
+
 .tableHeader {
   display: flex;
   justify-content: center;
