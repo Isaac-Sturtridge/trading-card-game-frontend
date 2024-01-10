@@ -137,3 +137,119 @@ background-size: cover;
     font-size: x-large;
     font-family: cursive;
 }
+
+.tokensContainer{
+  width: 5.5vw;
+}
+
+.tokenPic{
+  height: 12vh;
+}
+
+.tokenHeader{
+  padding-top: 1vh;
+  font-family: 'Trocchi', sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+.BronzeValue{
+  position: absolute;
+  top: 37%;
+  left: 48%;
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  font-size: 4vw;
+  color: gold;
+  font-family: 'Trocchi', sans-serif;
+  transform: translate(-50%, -50%);
+}
+
+.DiamondValue{
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  font-size: 4vw;
+  color: gold;
+  font-family: 'Trocchi', sans-serif;
+  transform: translate(-50%, -50%);
+}
+
+.GoldValue{
+  position: absolute;
+  top: 40%;
+  left: 48%;
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  font-size: 4vw;
+  color: gold;
+  font-family: 'Trocchi', sans-serif;
+  transform: translate(-50%, -50%);
+}
+
+.SilverValue{
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  font-size: 4vw;
+  color: gold;
+  font-family: 'Trocchi', sans-serif;
+  transform: translate(-50%, -50%);
+}
+
+.TextileValue{
+  position: absolute;
+  top: 33%;
+  left: 50%;
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  font-size: 4vw;
+  color: gold;
+  font-family: 'Trocchi', sans-serif;
+  transform: translate(-50%, -50%);
+}
+
+.SpiceValue{
+  position: absolute;
+  top: 33%;
+  left: 50%;
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; 
+  font-size: 4vw;
+  color: gold;
+  font-family: 'Trocchi', sans-serif;
+  transform: translate(-50%, -50%);
+}
+
+.tokens{
+  border: 2px solid red;
+}
+
+#BronzeToken{
+  width: 100%;
+  margin-top: 1vh;
+  padding-bottom: 2vh;
+}
+
+#DiamondToken{
+  width: 100%;
+  padding-bottom: 2vh;
+}
+
+#GoldToken{
+  width: 100%;
+  padding-bottom: 2vh;
+}
+
+#SilverToken{
+  width: 100%;
+  padding-bottom: 2vh;
+}
+
+#SpiceToken{
+  width: 100%;  
+  padding-bottom: 2vh;
+}
+
+#TextileToken{
+  width: 100%;
+  padding-bottom: 2vh;
+}
