@@ -19,8 +19,6 @@ const EndTurn = ({
     maxCards: "Max card reached",
   });
 
-  console.log(handCards.length);
-
   useEffect(() => {
     if (selectedHandCards.length === 0 && selectedTableCards.length === 0) {
       setAction("Your turn");

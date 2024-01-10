@@ -14,6 +14,7 @@ import DisconnectMessage from "./components/disconnectMessage";
 import { generateUsername } from "unique-username-generator";
 import MessagingArea from "./components/MessagingArea";
 import { useSpring, animated } from "@react-spring/web";
+import { TokensContainer } from "./components/TokensContainer";
 
 socket.auth = { username: generateUsername("-", 0, 10) };
 const sessionID = sessionStorage.getItem("sessionID");
@@ -40,6 +41,7 @@ function App() {
   const [selectedTableCards, setSelectedTableCards] = useState([]);
   const [startMessage, setStartMessage] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [tokens, setTokens] = useState({});
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -59,6 +61,7 @@ function App() {
       setHasSetup(true);
       setHasStarted(true);
       setStartMessage(true);
+      setTokens(res.tokenValues)
       setTimeout(() => {
         setStartMessage(false);
       }, 3000);
@@ -136,6 +139,7 @@ function App() {
 
     const tokenValues = ({ tokenValues }) => {
       console.log(tokenValues);
+      setTokens(tokenValues);
     };
 
     socket.on("connect", onConnect);
@@ -218,6 +222,10 @@ function App() {
                 selectedTableCards={selectedTableCards}
                 handCards={handCards}
               />
+            </div>
+            <div className="tokensContainer">
+              <TokensContainer tokens={tokens} />
+              {console.log(tokens)}
             </div>
           </div>
           {/* <CardPile /> */}
