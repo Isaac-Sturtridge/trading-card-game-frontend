@@ -4,7 +4,7 @@ export const TokensContainer = ({ tokens }) => {
 return (
     <div className="tokensContainer">
       <div className="tokenHeader">
-        Resource Point Value
+        Token Value
         </div>
         {Object.keys(tokens).map((resource) => {
             return (

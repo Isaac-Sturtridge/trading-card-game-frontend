@@ -55,11 +55,11 @@ export const TableCard = ({
           if (!selectedTableCards.includes(card)) {
             api.start({
               from: {scale: 1.0},
-              to: {scale: 1.1}
+              to: {scale: 1.07}
             })
           } else {
             api.start({
-              from:{scale: 1.1},
+              from:{scale: 1.07},
               to: {scale: 1.0}
             })
           }
