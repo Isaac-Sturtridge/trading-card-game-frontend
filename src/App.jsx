@@ -17,6 +17,8 @@ import { useSpring, animated } from "@react-spring/web";
 import { TokensContainer } from "./components/TokensContainer";
 import CardsInDeck from "./components/CardsInDeck";
 import OpponentCards from "./components/OpponentCards";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
@@ -67,10 +69,7 @@ function App() {
 
     const onConnect = (data) => {
       setIsConnected(true);
-      setOnConnectionMsg(true);
-      setTimeout(() => {
-        setOnConnectionMsg(false);
-      }, 2000);
+      toast("You have connected... waiting for opponent!");
       console.log("user Connected");
     };
 
@@ -78,13 +77,10 @@ function App() {
       setTurnEnded(res.playerTurn);
       setHasSetup(true);
       setHasStarted(true);
-      setStartMessage(true);
       setTokens(res.tokenValues);
-      setTimeout(() => {
-        setStartMessage(false);
-      }, 3000);
       setHandCards(res.playerHand);
       setTableCards(res.cardsOnTable);
+      toast("Game Started! Goodluck!!");
     };
 
     const playerHandUpdate = ({ playerHand }) => {
@@ -120,27 +116,23 @@ function App() {
     const activeUsers = (data) => {
       setUsernames(data);
       setConnectedUsers(data.length);
+      if (data.length === 2) {
+        toast("Opponent has connected!")
+      }
     };
 
     const tableUpdate = ({ cardsOnTable }) => {
       setTableCards(cardsOnTable);
     };
 
-    const connectionMessage = (data) => {
-      setOpponentConnection(true);
-      setTimeout(() => {
-        setOpponentConnection(false);
-      }, 2000);
-    };
+    const connectionMessage = (data) => {};
 
     const onUserDisconnected = () => {
-      setUserDisconnected(true);
-      setTimeout(() => {
-        setUserDisconnected(false);
-      }, 3000);
+      toast.warning("Opponent has disconnected!");
     };
 
     const onMessageUpdate = ({ msg }) => {
+      toast(msg);
       setMessages((previous) => {
         return [...previous, msg];
       });
@@ -205,11 +197,16 @@ function App() {
   // console.log(selectedHandCards);
 
   return (
-    <>
-      <Header isConnected={isConnected} roomName={roomName} score={score} usernames={usernames} />
-      {userDisconnected && <DisconnectMessage />}
-      {opponentConnection && <OpponentConnectionMessage />}
-      {onConnectionMsg && <ConnectionMessage />}
+    <div className="app">
+      <Header
+        isConnected={isConnected}
+        roomName={roomName}
+        score={score}
+        usernames={usernames}
+      />
+      {/* {userDisconnected && <DisconnectMessage />} */}
+      {/* {opponentConnection && <OpponentConnectionMessage />} */}
+      {/* {onConnectionMsg && <ConnectionMessage />} */}
       {!hasStarted ? (
         <GameStart
           setDisplayName={setDisplayName}
@@ -226,10 +223,10 @@ function App() {
         <h1 className="gameStartedHeader">Game Started!</h1>
       ) : null}
       {hasSetup ? (
-        <>
+        <div className="gameplayArea">
+          {/* <MessagingArea messages={messages} /> */}
           <div className="gameTable">
             <div className="side-bar">
-              <MessagingArea messages={messages} />
               <CardsInDeck cardsInDeckDisplay={cardsInDeckDisplay} />
             </div>
             <div className="cardsContainers">
@@ -242,6 +239,16 @@ function App() {
                 selectedTableCards={selectedTableCards}
                 setSelectedTableCards={setSelectedTableCards}
               />
+              <div className="endTurnButtonContainer">
+                <EndTurn
+                  turnEnded={turnEnded}
+                  setTurnEnded={setTurnEnded}
+                  selectedHandCards={selectedHandCards}
+                  selectedTableCards={selectedTableCards}
+                  handCards={handCards}
+                  tableCards={tableCards}
+                />
+              </div>
               <HandCards
                 className="handCardContainer"
                 handCards={handCards}
@@ -251,26 +258,28 @@ function App() {
                 setSelectedHandCards={setSelectedHandCards}
               />
             </div>
-            <div className="endTurnButtonContainer">
-              <EndTurn
-                turnEnded={turnEnded}
-                setTurnEnded={setTurnEnded}
-                selectedHandCards={selectedHandCards}
-                selectedTableCards={selectedTableCards}
-                handCards={handCards}
-                tableCards={tableCards}
-              />
-            </div>
-            <div className="tokensContainer">
-              <TokensContainer tokens={tokens} />
-              {console.log(tokens)}
-            </div>
+          </div>
+          <div className="tokensContainer">
+            <TokensContainer tokens={tokens} />
+            {console.log(tokens)}
           </div>
           {/* <CardPile /> */}
-        </>
+        </div>
       ) : null}
       {gameOver ? <GameOver /> : null}
-    </>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+        theme="light"
+      />
+    </div>
   );
 }
 

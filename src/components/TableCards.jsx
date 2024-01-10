@@ -9,7 +9,7 @@ export const TableCards = ({
 }) => {
   return (
     <>
-      <h1 className="tableHeader">Table Cards</h1>
+
       <div className="tableCards">
         {tableCards.map((card) => {
           return (

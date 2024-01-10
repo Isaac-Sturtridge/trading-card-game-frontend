@@ -1,6 +1,7 @@
 .gameTable {
   /* border: 2px solid red; */
   display: flex;
+  width: 95vw;
   background-color: #ffffff57;
   border-radius: 2vw;
 }
@@ -22,7 +23,6 @@ body {
 
 .cardsContainers {
   width: 90%;
-  margin-left: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,19 +40,16 @@ body {
 }
 
 .endTurnButtonContainer {
-  width: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10vw;
   /* border: 2px solid red; */
 }
 
 .endTurnButton {
-  border-radius: 4rem;
+  margin-top: 2vh;
+  border-radius: 1rem;
+  height: auto;
   width: 100%;
   font-size: 1.7vw;
-  font-family: cursive;
+  font-family: "Trocchi", sans-serif;
   margin-right: 20%;
 }
 
@@ -100,7 +97,7 @@ body {
 .endTurnButton.addCardToHand:hover {
   background-color: rgb(0, 255, 0);
   animation: greenGlow 1s infinite;
-  transform: translateY(-6px);
+  transform: translateY(-2px);
 }
 
 .endTurnButton.sellCardFromHand {
@@ -113,7 +110,7 @@ body {
   background-color: rgb(255, 230, 0);
   border: 2px solid gold;
   animation: goldGlow 1s infinite;
-  transform: translateY(-6px);
+  transform: translateY(-2px);
 }
 
 .endTurnButton.cardSwap {
@@ -124,7 +121,7 @@ body {
 .endTurnButton.cardSwap:hover {
   background-color: rgb(0, 204, 255);
   animation: blueGlow 1s infinite;
-  transform: translateY(-6px);
+  transform: translateY(-2px);
 }
 
 .tableHeader {
@@ -259,13 +256,12 @@ body {
 .opponentCardArea {
   display: flex;
   flex-direction: row;
-  width: 30vw;
-  height: 5vw;
+  width: auto;
+  height: 13.5vh;
   justify-content: center;
-  margin-top: 10px;
-  padding: 2vw;
+  margin-top: 1vh;
   background-color: #d3d2dd80;
-  border-radius: 2vw;
+  border-radius: 1vw;
 }
 
 .opponentCardBack {
@@ -278,8 +274,7 @@ body {
   align-items: center;
   font-size: 2.3vw;
   transition: all 0.3s;
-  cursor: pointer;
-  margin: 0.3vw;
+  margin: 0.5vw;
   transition: background-color 0.3s ease;
   background-image: url("./components/assets/opponent-card.png");
   background-size: cover;

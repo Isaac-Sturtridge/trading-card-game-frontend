@@ -61,11 +61,11 @@ export const HandCard = ({
           if (!selectedHandCards.includes(card)) {
             api.start({
               from: { y: 0 },
-              to: { y: -50, scale: 1.05 },
+              to: { y: -30, scale: 1.05 },
             });
           } else {
             api.start({
-              from: { y: -50 },
+              from: { y: -30 },
               to: { y: 0, scale: 1.0 },
             });
           }
