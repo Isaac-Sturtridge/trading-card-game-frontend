@@ -268,26 +268,34 @@ body {
   height: 5vw;
   justify-content: center;
   margin-top: 10px;
-  padding: 2vw;
+  padding: 0.5vw 2vw 2.5vw 2vw;
   background-color: #d3d2dd80;
   border-radius: 2vw;
 }
 
 .opponentCardBack {
-  width: 3vw;
-  border: 1px solid black;
-  height: 5vw;
+  width: 5vw;
+  height: 7vw;
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 2.3vw;
   transition: all 0.3s;
-  cursor: pointer;
-  margin: 0.3vw;
+  /* margin: 0.3vw; */
   transition: background-color 0.3s ease;
-  background-image: url("./components/assets/opponent-card.png");
+  background-image: url("./components/assets/card-back.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.cardBackText {
+  font-family: "Infinity", sans-serif;
+  /* letter-spacing: 10px; */
+  font-size: 0.7vw;
+  /* overflow: hidden; */
+  color: #d80202;
+  margin: 0;
+  font-weight: 900;
 }

@@ -46,10 +46,10 @@ const Header = ({ score, usernames, roomName, isConnected }) => {
         </h2>
       </div>
       <div className="titleContainer">
-        <h1 className="title">Card Game</h1>
+        <h1 className="title">Resource Rivals</h1>
       </div>
       <div>
-        {isConnected ? (<div className="roomID">Room ID: {roomName}</div>) : ""}
+        {isConnected ? <div className="roomID">Room ID: {roomName}</div> : ""}
 
         <Popup
           trigger={<button className="instructionsButton">Instructions</button>}

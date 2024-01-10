@@ -27,7 +27,7 @@ button {
   letter-spacing: 10px;
   font-size: 5vw;
   width: 90%;
-  color: rgb(216, 2, 2);
+  color: #d80202;
 }
 
 .tableHeader {
@@ -232,7 +232,7 @@ button {
   border: 1px solid #cfcece;
 }
 
-.modalStart{
+.modalStart {
   display: grid;
   border: 2px solid black;
   border-radius: 1vw;
@@ -243,13 +243,13 @@ button {
   background-size: cover;
 }
 
-.modalStartInputs{
+.modalStartInputs {
   width: auto;
   margin-bottom: 2vh;
   text-align: center;
 }
 
-.createRoom{
+.createRoom {
   grid-column-start: 1;
   display: inline-grid;
   margin: 1vw;
@@ -258,7 +258,7 @@ button {
   width: 15vw;
 }
 
-.joinRoom{
+.joinRoom {
   border-left: 2px solid black;
   display: inline-grid;
   grid-column-start: 2;
@@ -269,13 +269,13 @@ button {
   width: 15vw;
 }
 
-.displayName{
+.displayName {
   margin-top: 2vh;
   font-size: 1vw;
 }
 
-.roomName{
-  font-size: 1vw; 
+.roomName {
+  font-size: 1vw;
 }
 
 .startGameButtonContainer {
@@ -284,7 +284,7 @@ button {
   margin-top: 5%;
   height: 300px;
   width: 92%;
-  font-family: 'Trocchi', sans-serif;
+  font-family: "Trocchi", sans-serif;
 }
 
 .startGameButton {
@@ -294,7 +294,7 @@ button {
   height: 6vh;
   width: auto;
   background-color: #e4eef6;
-  font-family: 'Trocchi', sans-serif;
+  font-family: "Trocchi", sans-serif;
 }
 
 .gameStartedHeader {
