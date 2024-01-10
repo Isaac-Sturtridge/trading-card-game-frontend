@@ -17,6 +17,8 @@ import { useSpring, animated } from "@react-spring/web";
 import { TokensContainer } from "./components/TokensContainer";
 import CardsInDeck from "./components/CardsInDeck";
 import OpponentCards from "./components/OpponentCards";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 socket.auth = {
   username: generateUsername("-", 0, 10),
@@ -68,6 +70,8 @@ function App() {
       setHasSetup(true);
       setHasStarted(true);
       setStartMessage(true);
+      setGameOver(false);
+      setMessages([]);
       setTokens(res.tokenValues);
       setTimeout(() => {
         setStartMessage(false);
@@ -95,6 +99,7 @@ function App() {
     const onGameOver = ({ playerScores, msg }) => {
       setGameOver(true);
       setHasStarted(false);
+      setHasSetup(false);
       console.log(msg);
     };
 
@@ -122,11 +127,15 @@ function App() {
       }, 2000);
     };
 
-    const onUserDisconnected = () => {
+    const onUserDisconnected = ({ socket }) => {
+      console.log(socket);
       setUserDisconnected(true);
       setTimeout(() => {
         setUserDisconnected(false);
       }, 3000);
+      // setMessages((previous) => {
+      //   return [...previous];
+      // });
     };
 
     const onMessageUpdate = ({ msg }) => {
@@ -253,7 +262,17 @@ function App() {
           {/* <CardPile /> */}
         </>
       ) : null}
-      {gameOver ? <GameOver /> : null}
+      <Popup open={gameOver}>
+        {(close) => (
+          <div className="modal">
+            <button className="close" onClick={close}>
+              &times;
+            </button>
+            <div className="header">Game Over</div>
+            {gameOver ? <GameOver score={score} usernames={usernames} /> : null}
+          </div>
+        )}
+      </Popup>
     </>
   );
 }
