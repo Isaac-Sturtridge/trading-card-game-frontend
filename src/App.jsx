@@ -20,15 +20,6 @@ import OpponentCards from "./components/OpponentCards";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
-socket.auth = {
-  username: generateUsername("-", 0, 10),
-  room: process.env.NODE_ENV,
-};
-const sessionID = sessionStorage.getItem("sessionID");
-if (sessionID) {
-  socket.auth = { sessionID };
-}
-
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [hasStarted, setHasStarted] = useState(false);
@@ -52,6 +43,25 @@ function App() {
   const [cardsInDeckDisplay, setCardsInDeckDisplay] = useState(29);
   const [opponentHand, setOpponentHand] = useState(5);
   const [gameOverReasonDisplay, setGameOverReasonDisplay] = useState("");
+  const [onStartButton, setOnStartButton] = useState(false);
+  const [displayName, setDisplayName] = useState("");
+  const [roomName, setRoomName] = useState("");
+
+  useEffect(() => {
+    if (onStartButton) {
+      socket.connect();
+      console.log(roomName, displayName, "details");
+      socket.auth = {
+        username: displayName,
+        room: roomName,
+      };
+      const sessionID = sessionStorage.getItem("sessionID");
+      if (sessionID) {
+        socket.auth = { sessionID };
+      }
+      setOnStartButton(false);
+    }
+  }, [onStartButton]);
 
   useEffect(() => {
     const onDisconnect = () => {
@@ -64,6 +74,7 @@ function App() {
       setTimeout(() => {
         setOnConnectionMsg(false);
       }, 2000);
+      console.log("user Connected");
     };
 
     const onGameSetup = (res) => {
@@ -206,12 +217,17 @@ function App() {
 
   return (
     <>
-      <Header score={score} usernames={usernames} />
+      <Header isConnected={isConnected} roomName={roomName} score={score} usernames={usernames} />
       {userDisconnected && <DisconnectMessage />}
       {opponentConnection && <OpponentConnectionMessage />}
       {onConnectionMsg && <ConnectionMessage />}
       {!hasStarted ? (
         <GameStart
+          setDisplayName={setDisplayName}
+          setRoomName={setRoomName}
+          displayName={displayName}
+          roomName={roomName}
+          setOnStartButton={setOnStartButton}
           hasStarted={hasStarted}
           setHasStarted={setHasStarted}
           connectedUsers={connectedUsers}
