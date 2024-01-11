@@ -199,7 +199,7 @@ const EndTurn = ({
       disabled={
         !turnEnded ||
         action === "Invalid Move" ||
-        action === "Your turn" ||
+        action === "yourTurn" ||
         action === "maxCards"
       }
       onClick={handleClick}
