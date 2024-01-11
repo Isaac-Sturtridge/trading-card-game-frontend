@@ -61,7 +61,7 @@ const EndTurn = ({
     // otherwise only one card should can be selected
     else if (selectedTableCards.length > 1) {
       console.log("Take only one card from the table.");
-      return true;
+      return false;
     } else if (handCardLength() >= 7) {
       console.log("You can only have a max of 7 goods in you hand.");
       return false;
