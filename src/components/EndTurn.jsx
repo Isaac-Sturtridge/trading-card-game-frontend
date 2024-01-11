@@ -145,7 +145,11 @@ const EndTurn = ({
 
   useEffect(() => {
     // no cards have been selected
-    if (selectedHandCards.length === 0 && selectedTableCards.length === 0) {
+    if (
+      selectedHandCards.length === 0 &&
+      selectedTableCards.length === 0 &&
+      turnEnded
+    ) {
       setAction("yourTurn");
     }
     // when only tableCards have been selected

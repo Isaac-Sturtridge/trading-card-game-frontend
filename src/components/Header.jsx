@@ -38,12 +38,12 @@ const Header = ({ score, usernames, roomName, isConnected }) => {
   return (
     <header className="headerArea">
       <div className="scores">
-        <h2>
+        <p>
           {player ? player : "Player 1"}: {playerScore || 0}
-        </h2>
-        <h2>
+        </p>
+        <p>
           {opponent ? opponent : "Player 2"}: {opponentScore || 0}
-        </h2>
+        </p>
       </div>
       <div className="titleContainer">
         <h1 className="title">Resource Rivals</h1>

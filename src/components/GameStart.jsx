@@ -13,11 +13,10 @@ const GameStart = ({
   setRoomName,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(true);
-  
 
   useEffect(() => {
-    setRoomName(rand)
-  },[])
+    setRoomName(rand);
+  }, []);
 
   const handleStartGame = () => {
     setOnStartButton(true);
@@ -29,7 +28,7 @@ const GameStart = ({
       {isModalOpen && (
         <div className="modalStart">
           <div className="createRoom">
-            Create Room
+            <h2 className="startGameHeader">Create Room</h2>
             <label className="displayName">Display Name</label>
             <input
               className="modalStartInputs"
@@ -48,8 +47,9 @@ const GameStart = ({
               Create Game
             </button>
           </div>
+          <div className="pip-line"></div>
           <div className="joinRoom">
-            Join Room
+            <h2 className="startGameHeader">Join Room</h2>
             <label className="displayName">Display Name</label>
             <input
               className="modalStartInputs"
