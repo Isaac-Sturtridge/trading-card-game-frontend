@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
+import { toast} from 'react-toastify';
 
 const EndTurn = ({
   turnEnded,
@@ -9,6 +10,7 @@ const EndTurn = ({
   handCards,
   tableCards,
 }) => {
+  const[error, setError] = useState('')
   const [action, setAction] = useState("Your turn");
   const [payload, setPayload] = useState([]);
   const [actionLookup, setActionLookup] = useState({
@@ -60,8 +62,8 @@ const EndTurn = ({
     }
     // otherwise only one card should can be selected
     else if (selectedTableCards.length > 1) {
-      console.log("Take only one card from the table.");
-      return true;
+      setError("Take only one card from the table.");
+      return false;
     } else if (handCardLength() >= 7) {
       console.log("You can only have a max of 7 goods in you hand.");
       return false;
@@ -77,7 +79,7 @@ const EndTurn = ({
     }
     // check that every good selected is of the same type
     else if (!selectedHandCards.every((card) => card.card_type === card_type)) {
-      console.log("Only goods of the same kind can be sold!");
+      setError("Only goods of the same kind can be sold!");
       return false;
     } else if (
       card_type === "Diamond" ||
@@ -85,7 +87,7 @@ const EndTurn = ({
       card_type === "Silver"
     ) {
       if (selectedHandCards.length < 2) {
-        console.log(
+        setError(
           "You can only sell two or more precious goods like Diamond, Gold and Silver"
         );
         return false;
@@ -97,12 +99,12 @@ const EndTurn = ({
   const validSwapSelection = () => {
     // check if the player is trying to swap one good only
     // if so return false
-    console.log(selectedTableCards.length, selectedHandCards.length);
+    setError(selectedTableCards.length, selectedHandCards.length);
     if (selectedHandCards.length === 1) {
-      console.log(`Two or more cards must be swaped and of different kinds.`);
+      setError(`Two or more cards must be swapped and of different kinds.`);
       return false;
     } else if (selectedHandCards.length !== selectedTableCards.length) {
-      console.log(`You can only swap an equal number of cards.`);
+      setError(`You can only swap an equal number of cards.`);
       return false;
     }
     // otherwise create a set of the unique goods up for swap
@@ -120,7 +122,7 @@ const EndTurn = ({
         return arr1Set.includes(x);
       })
     ) {
-      console.log(`You can only swap goods of a different kind.`);
+      setError(`You can only swap goods of a different kind.`);
       return false;
     }
 
@@ -136,7 +138,7 @@ const EndTurn = ({
     // return false
     console.log(handCardLength(), outcomeSwap, filterSelTableCards);
     if (outcomeSwap > 7) {
-      console.log(`Swap cards so you have up to a max of 7 goods in you hand!`);
+      setError(`Swap cards so you have up to a max of 7 goods in you hand!`);
       return false;
     }
     // this swap is valid
@@ -193,16 +195,19 @@ const EndTurn = ({
     socket.emit("endTurn", turnEnded, () => {});
   };
 
+  const handleError = ()=>{
+    toast.warn(error, {position: "top-right"})
+  }
+
   return (
     <button
       className={`endTurnButton ${action}`}
       disabled={
         !turnEnded ||
-        action === "Invalid Move" ||
         action === "yourTurn" ||
         action === "maxCards"
       }
-      onClick={handleClick}
+      onClick={action !== "Invalid Move" ? handleClick : handleError}
     >
       {turnEnded ? `${actionLookup[action]}` : "Opponents Turn!"}
     </button>
