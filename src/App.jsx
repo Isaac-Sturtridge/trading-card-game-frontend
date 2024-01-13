@@ -109,6 +109,18 @@ function App() {
 		};
 
 		const onGameOver = ({ playerScores, msg, gameOverReason }) => {
+			sessionStorage.removeItem('sessionID');
+			setHandCards([]);
+			setTableCards([]);
+			setScore([]);
+			setConnectedUsers([]);
+			setUsernames([]);
+			setSelectedHandCards([]);
+			setTokens([]);
+			setSelectedTableCards([]);
+			setCardsInDeckDisplay(40);
+			setOpponentHand(5);
+
 			setGameOver(true);
 			setHasStarted(false);
 			setHasSetup(false);
