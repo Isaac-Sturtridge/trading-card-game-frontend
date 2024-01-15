@@ -110,22 +110,19 @@ function App() {
 
 		const onGameOver = ({ playerScores, msg, gameOverReason }) => {
 			sessionStorage.removeItem('sessionID');
+			setGameOverReasonDisplay(gameOverReason);
 			setHandCards([]);
 			setTableCards([]);
-			setScore([]);
-			setConnectedUsers([]);
-			setUsernames([]);
+			setConnectedUsers();
 			setSelectedHandCards([]);
 			setTokens([]);
 			setSelectedTableCards([]);
 			setCardsInDeckDisplay(40);
 			setOpponentHand(5);
-
 			setGameOver(true);
 			setHasStarted(false);
 			setHasSetup(false);
-			setGameOverReasonDisplay(gameOverReason);
-			console.log(msg);
+			socket.disconnect();
 		};
 
 		const onTurnChange = (playersTurn) => {
